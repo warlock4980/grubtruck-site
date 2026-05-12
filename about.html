@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — GrubTrucks</title>
+  <meta name="description" content="Who's behind GrubTrucks — the founder story, the values, and what we're building." />
+  <meta property="og:title" content="About — GrubTrucks" />
+  <meta property="og:description" content="Who's behind GrubTrucks — the founder story, the values, and what we're building." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://grubtruck.app/about.html" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:      #FAF7F2;
+      --cream-deep: #F2EDE2;
+      --card:       #F5EFE5;
+      --navy:       #0B1F33;
+      --navy-soft:  #1F344A;
+      --orange:     #C2410C;
+      --orange-dark:#9A3412;
+      --orange-soft:#F0DCC6;
+      --text:       #1A1A1A;
+      --muted:      #6B6258;
+      --border:     #E5E0D5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      color: var(--text);
+      line-height: 1.75;
+      background: var(--cream);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+
+    header.site-header {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--cream);
+    }
+    .site-header .inner {
+      max-width: 960px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800; font-size: 24px; color: var(--navy);
+      text-decoration: none; letter-spacing: -0.01em;
+    }
+    .brand .brand-mark {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--navy); color: var(--cream);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: 20px; font-style: italic;
+    }
+    .brand .accent { color: var(--orange); font-style: italic; }
+    nav.top-nav { display: flex; gap: 26px; align-items: center; }
+    nav.top-nav a { color: var(--navy); text-decoration: none; font-size: 15px; font-weight: 500; }
+    nav.top-nav a:hover { color: var(--orange); }
+
+    .hero { padding: 64px 0 24px; }
+    .eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      font-size: clamp(36px, 5.5vw, 56px);
+      line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--navy); margin-bottom: 18px;
+    }
+    .hero h1 em { font-style: italic; color: var(--orange); font-weight: 800; }
+    .hero .tagline {
+      font-size: clamp(17px, 2.2vw, 21px); color: var(--muted);
+      max-width: 600px; line-height: 1.55;
+    }
+
+    section.section { padding: 40px 0; border-top: 1px solid var(--border); }
+    section.section:first-of-type { border-top: none; padding-top: 32px; }
+    section h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700; font-size: 28px;
+      margin-bottom: 18px; letter-spacing: -0.01em;
+      color: var(--navy);
+    }
+    section h2 em { font-style: italic; color: var(--orange); }
+    p { font-size: 17px; margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+    p strong { color: var(--navy); font-weight: 600; }
+
+    .pullquote {
+      background: var(--card);
+      padding: 24px 28px;
+      border-radius: 12px;
+      border-left: 4px solid var(--orange);
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 19px;
+      color: var(--navy);
+      margin: 20px 0;
+      line-height: 1.5;
+    }
+
+    ul.values { list-style: none; padding: 0; margin: 14px 0; }
+    ul.values li {
+      padding: 14px 0 14px 28px;
+      position: relative; font-size: 16px;
+    }
+    ul.values li::before {
+      content: "→"; color: var(--orange);
+      position: absolute; left: 0; font-weight: 600;
+    }
+    ul.values li strong { color: var(--navy); font-weight: 600; }
+
+    a.inline { color: var(--orange-dark); text-decoration: underline; }
+    a.inline:hover { color: var(--orange); }
+
+    .contact-card {
+      background: var(--card);
+      padding: 26px 28px;
+      border-radius: 14px;
+      margin: 14px 0;
+      border: 1px solid var(--border);
+    }
+    .contact-card p { margin: 6px 0; font-size: 16px; }
+
+    footer.site-footer {
+      padding: 56px 0 36px; background: var(--navy);
+      color: var(--cream-deep); margin-top: 64px;
+    }
+    .site-footer .inner { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+    .site-footer .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 36px; margin-bottom: 32px;
+    }
+    .site-footer h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 16px; color: var(--cream);
+      margin-bottom: 14px; font-weight: 700;
+    }
+    .site-footer ul { list-style: none; }
+    .site-footer li { margin-bottom: 8px; }
+    .site-footer a { color: var(--cream-deep); text-decoration: none; font-size: 14px; }
+    .site-footer a:hover { color: var(--orange); }
+    .site-footer .footer-brand p {
+      font-size: 14px; color: var(--cream-deep); opacity: 0.8;
+      margin-top: 10px; max-width: 280px;
+    }
+    .site-footer .colophon {
+      border-top: 1px solid rgba(250, 247, 242, 0.12);
+      padding-top: 20px; font-size: 12px;
+      color: var(--cream-deep); opacity: 0.7;
+    }
+    @media (max-width: 720px) {
+      .site-footer .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav.top-nav { display: none; }
+    }
+
+    #cookie-consent {
+      position: fixed; bottom: 16px; left: 16px; right: 16px;
+      max-width: 720px; margin: 0 auto;
+      background: var(--navy); color: var(--cream);
+      padding: 20px 24px; border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      z-index: 10000; font-family: 'Inter', sans-serif;
+      font-size: 14px; line-height: 1.5;
+    }
+    #cookie-consent p { margin: 0 0 12px; color: var(--cream); }
+    #cookie-consent a { color: var(--orange-soft); text-decoration: underline; }
+    #cookie-consent .cc-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    #cookie-consent button {
+      background: var(--orange); color: var(--cream); border: none;
+      padding: 8px 18px; border-radius: 8px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      font-family: inherit;
+    }
+    #cookie-consent button:hover { background: var(--orange-dark); }
+    #cookie-consent .decline {
+      background: transparent; color: var(--cream);
+      border: 1px solid rgba(250, 247, 242, 0.5);
+    }
+  </style>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied', 'ad_user_data': 'denied',
+      'ad_personalization': 'denied', 'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+    try {
+      if (localStorage.getItem('grubtruck-analytics-consent') === 'granted') {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      }
+    } catch (e) {}
+    gtag('js', new Date());
+    gtag('config', 'G-PLACEHOLDER', { 'anonymize_ip': true });
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a href="/" class="brand">
+        <span class="brand-mark">G</span>
+        <span>Grub<span class="accent">Trucks</span></span>
+      </a>
+      <nav class="top-nav">
+        <a href="for-trucks.html">For Trucks</a>
+        <a href="help.html">Help</a>
+        <a href="about.html">About</a>
+        <a href="research.html">Labs</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section class="hero">
+      <span class="eyebrow">About</span>
+      <h1>Who's behind the <em>truck-finder.</em></h1>
+      <p class="tagline">GrubTrucks is a product of Magpie Studios — a one-person studio building software for the messy parts of regular life. Here's the story behind it.</p>
+    </section>
+
+    <section class="section">
+      <h2>Where I started</h2>
+      <p>
+        I was born in <strong>Michoacán, Mexico</strong>, and came to the United States with my family when I was <strong>five years old</strong>. We didn't have much &mdash; "dirt poor" is the honest term, and being candid: that hasn't fully changed yet. What changed is what I've learned to build.
+      </p>
+      <p>
+        Growing up between two languages and two cultures teaches you a specific kind of resourcefulness. You learn to figure things out from scratch because nobody around you knows the answer either. You learn that most expensive solutions have a cheaper, more careful alternative if you're willing to read the documentation. You learn that being underestimated has occasional uses.
+      </p>
+      <p>
+        I'm now an Arizona resident, a US citizen, and an LLC owner. None of that was inevitable. All of it was earned.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Why I built GrubTrucks</h2>
+      <p>
+        Food trucks are the most democratic part of the food economy. They're affordable to start, mobile by nature, and rooted in immigrant traditions of cooking for strangers and turning that into a livelihood. Some of the best meals I've eaten came out of a window I had to go find.
+      </p>
+      <p>
+        The problem: finding them is genuinely hard. They move. Their hours change weekly. Their websites — if they have one — are usually a stale Facebook page. Standing on a street corner trying to remember which lot is open today, and ending up at a chain restaurant by default, is a tax I have paid too many times.
+      </p>
+      <div class="pullquote">
+        Food trucks are the kind of business you have to chase. GrubTrucks is the app that turns that chase into a tap.
+      </div>
+      <p>
+        So I built the app I wanted to use. Trucks first. Mobile-first. Real-time first. No tables, no waitlists, no chains. Just the trucks.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>What you'll see from GrubTrucks</h2>
+      <ul class="values">
+        <li><strong>Trucks first, always.</strong> We don't surface chain restaurants, fast-food locations, or anything that isn't a mobile food vendor. The whole product is built around that single discipline.</li>
+        <li><strong>Privacy as a first-class concern.</strong> Your location is used to find food, not to build a profile of you. We have no ad business. We have no behavioral analytics. Account deletion is a single tap.</li>
+        <li><strong>Operators get tools, not extraction.</strong> Trucks can list themselves for free. We're not skimming order fees. Long-term, the business model is closer to a tip jar than a marketplace.</li>
+        <li><strong>Honest documentation.</strong> A real owner's manual, a real privacy policy, real legal terms. Read them — they're written in English, not boilerplate.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Where I'd like to take this</h2>
+      <p>
+        Short-term: ship the iOS app, onboard the first hundred trucks in Phoenix and a second city, and prove that a one-person studio can build software that real people pay for and trust. Get the Android port out of the parallel work-in-progress and into the App Store equivalent.
+      </p>
+      <p>
+        Long-term: build a portfolio of utilities under <a class="inline" href="https://magpiestudios.app">Magpie Studios</a> that handle the chores nobody else wants to automate, and reach the point where the company can support the people I love &mdash; including a house for my mother in Arizona. The honest version of that ambition is the one worth chasing.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>For the record</h2>
+      <p>
+        A few honest allegiances, all in good sportsmanship: <strong>Las Águilas del América</strong> in Liga MX, the <strong>Dodgers</strong> in MLB, the <strong>Lakers</strong> in the NBA, and the <strong>49ers</strong> in the NFL. Not to start a rivalry &mdash; just owning where my loyalties land. If you root for the other side, no offense taken on this end either.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Get in touch</h2>
+      <div class="contact-card">
+        <p><strong>Support / questions:</strong> <a class="inline" href="mailto:hello@grubtruck.app">hello@grubtruck.app</a></p>
+        <p><strong>Truck operators:</strong> <a class="inline" href="mailto:hello@grubtruck.app?subject=I%20want%20to%20list%20my%20truck">List your truck</a> — free, no commission.</p>
+        <p><strong>Launch list:</strong> <a class="inline" href="mailto:hello@grubtruck.app?subject=GrubTrucks%20waitlist">Email me</a> with "GrubTrucks waitlist" in the subject and I'll let you know when iOS ships.</p>
+        <p style="color: var(--muted); margin-top: 10px; font-size: 15px;">I'm a one-person operation in Arizona. Responses typically arrive within 48 hours on business days.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>GrubTrucks</h4>
+          <p>Real-time food truck discovery, built mobile-first. iOS launching soon.</p>
+        </div>
+        <div>
+          <h4>App</h4>
+          <ul>
+            <li><a href="help.html">User Manual</a></li>
+            <li><a href="for-trucks.html">For Operators</a></li>
+            <li><a href="mailto:hello@grubtruck.app">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="research.html">Labs</a></li>
+            <li><a href="https://magpiestudios.app">Magpie Studios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="colophon">
+        © 2026 GrubTrucks. A product of Magpie Studios LLC · Arizona, USA · All rights reserved.
+        <br />
+        GrubTrucks and the GrubTrucks word mark are trademarks of Magpie Studios LLC.
+      </div>
+    </div>
+  </footer>
+
+  <div id="cookie-consent" hidden role="dialog">
+    <p>
+      We use Google Analytics (with your consent) to count aggregate visits to grubtruck.app. No personal information is collected without your okay. See our <a href="privacy.html">Privacy Policy</a>.
+    </p>
+    <div class="cc-actions">
+      <button type="button" id="cookie-consent-accept">Accept analytics</button>
+      <button type="button" class="decline" id="cookie-consent-decline">Decline</button>
+    </div>
+  </div>
+  <script>
+  (function() {
+    var key = 'grubtruck-analytics-consent';
+    var banner = document.getElementById('cookie-consent');
+    if (!banner) return;
+    try { var e = localStorage.getItem(key); if (e === 'granted' || e === 'denied') return; } catch (e) {}
+    banner.hidden = false;
+    document.getElementById('cookie-consent-accept').addEventListener('click', function() {
+      try { localStorage.setItem(key, 'granted'); } catch (e) {}
+      if (typeof gtag === 'function') gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      banner.hidden = true;
+    });
+    document.getElementById('cookie-consent-decline').addEventListener('click', function() {
+      try { localStorage.setItem(key, 'denied'); } catch (e) {}
+      banner.hidden = true;
+    });
+  })();
+  </script>
+</body>
+</html>

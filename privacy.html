@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — GrubTrucks</title>
+  <meta name="description" content="GrubTrucks Privacy Policy — what we collect, how we use it, and what we don't do." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:#FAF7F2; --cream-deep:#F2EDE2; --card:#F5EFE5;
+      --navy:#0B1F33; --navy-soft:#1F344A;
+      --orange:#C2410C; --orange-dark:#9A3412; --orange-soft:#F0DCC6;
+      --text:#1A1A1A; --muted:#6B6258; --border:#E5E0D5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif; color: var(--text);
+      line-height: 1.7; background: var(--cream); min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+
+    header.site-header { padding: 28px 0; border-bottom: 1px solid var(--border); }
+    .site-header .inner {
+      max-width: 960px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'Playfair Display', serif; font-weight: 800; font-size: 24px;
+      color: var(--navy); text-decoration: none; letter-spacing: -0.01em;
+    }
+    .brand .brand-mark {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--navy); color: var(--cream);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: 20px; font-style: italic;
+    }
+    .brand .accent { color: var(--orange); font-style: italic; }
+    nav.top-nav { display: flex; gap: 26px; }
+    nav.top-nav a { color: var(--navy); text-decoration: none; font-size: 15px; font-weight: 500; }
+    nav.top-nav a:hover { color: var(--orange); }
+
+    .hero { padding: 56px 0 24px; }
+    .eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: clamp(36px, 5vw, 50px); line-height: 1.1;
+      letter-spacing: -0.02em; color: var(--navy); margin-bottom: 16px;
+    }
+    .effective { font-size: 14px; color: var(--muted); margin-top: 8px; }
+
+    section.section { padding: 32px 0; border-top: 1px solid var(--border); }
+    section h2 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: 24px; margin-bottom: 12px; letter-spacing: -0.01em; color: var(--navy);
+    }
+    section h3 {
+      font-family: 'Inter', sans-serif; font-weight: 600;
+      font-size: 17px; margin: 18px 0 8px; color: var(--navy);
+    }
+    p { font-size: 16px; margin-bottom: 12px; color: var(--text); }
+    p strong { color: var(--navy); font-weight: 600; }
+    ul, ol { padding-left: 24px; margin-bottom: 14px; }
+    li { font-size: 16px; padding: 4px 0; }
+    li strong { color: var(--navy); font-weight: 600; }
+    code {
+      background: var(--card); padding: 1px 6px; border-radius: 4px;
+      font-family: 'SF Mono', Menlo, monospace; font-size: 14px;
+      color: var(--orange-dark);
+    }
+    a.inline { color: var(--orange-dark); text-decoration: underline; }
+    a.inline:hover { color: var(--orange); }
+
+    table.legal {
+      width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;
+    }
+    table.legal th, table.legal td {
+      padding: 8px 10px; border: 1px solid var(--border);
+      text-align: left; vertical-align: top;
+    }
+    table.legal th { background: var(--card); color: var(--navy); font-weight: 600; }
+
+    footer.site-footer {
+      padding: 56px 0 36px; background: var(--navy);
+      color: var(--cream-deep); margin-top: 56px;
+    }
+    .site-footer .inner { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+    .site-footer .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 36px; margin-bottom: 32px;
+    }
+    .site-footer h4 {
+      font-family: 'Playfair Display', serif; font-size: 16px;
+      color: var(--cream); margin-bottom: 14px; font-weight: 700;
+    }
+    .site-footer ul { list-style: none; padding-left: 0; }
+    .site-footer li { margin-bottom: 8px; font-size: 14px; }
+    .site-footer a { color: var(--cream-deep); text-decoration: none; font-size: 14px; }
+    .site-footer a:hover { color: var(--orange); }
+    .site-footer .footer-brand p {
+      font-size: 14px; color: var(--cream-deep); opacity: 0.8;
+      margin-top: 10px; max-width: 280px;
+    }
+    .site-footer .colophon {
+      border-top: 1px solid rgba(250,247,242,0.12);
+      padding-top: 20px; font-size: 12px; opacity: 0.7;
+    }
+    @media (max-width: 720px) {
+      .site-footer .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav.top-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a href="/" class="brand">
+        <span class="brand-mark">G</span>
+        <span>Grub<span class="accent">Trucks</span></span>
+      </a>
+      <nav class="top-nav">
+        <a href="for-trucks.html">For Trucks</a>
+        <a href="help.html">Help</a>
+        <a href="about.html">About</a>
+        <a href="research.html">Labs</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section class="hero">
+      <span class="eyebrow">Legal</span>
+      <h1>Privacy Policy</h1>
+      <p class="effective"><strong>Effective date:</strong> April 29, 2026 · <strong>Last updated:</strong> May 12, 2026</p>
+    </section>
+
+    <section class="section" style="border-top: none;">
+      <p>This Privacy Policy describes how GrubTrucks ("we", "us", or "our") collects, uses, and shares information about you when you use the GrubTrucks mobile application and related services (collectively, the "Service").</p>
+      <p>By using the Service, you agree to the collection and use of information as described in this policy. If you do not agree, do not use the Service.</p>
+    </section>
+
+    <section class="section">
+      <h2>1. Information we collect</h2>
+
+      <h3>1.1 Account information</h3>
+      <p>When you sign in with <strong>Apple</strong> or <strong>Google</strong>, we receive:</p>
+      <ul>
+        <li><strong>Provider-issued user identifier</strong> (<code>sub</code> claim from Apple's or Google's verified ID token).</li>
+        <li><strong>Email address</strong>, when the provider returns it. Apple returns email only on the first sign-in for a given Apple ID + GrubTrucks pair.</li>
+        <li><strong>Name</strong>, when the provider returns it.</li>
+      </ul>
+      <p>We use this information to create and maintain your GrubTrucks account.</p>
+
+      <h3>1.2 Account preferences and content</h3>
+      <ul>
+        <li><strong>Role selection</strong> ("Customer" or "Vendor") that you pick after first sign-in.</li>
+        <li><strong>Favorite food trucks and restaurants</strong> that you save in the app.</li>
+      </ul>
+
+      <h3>1.3 Device information (local only)</h3>
+      <ul>
+        <li>Onboarding completion flag.</li>
+        <li>Search radius and distance-unit preferences.</li>
+        <li>Preferred navigation app (Apple Maps, Google Maps, Waze).</li>
+        <li>Recent search terms.</li>
+      </ul>
+
+      <h3>1.4 Location data</h3>
+      <p>When you grant location permission, the app uses your <strong>precise location</strong> to show food trucks and restaurants nearby, compute distances and drive times, and drive the map view.</p>
+      <p>Your location is <strong>never transmitted to or stored on our servers</strong>. It is used only on your device and as a search parameter sent to third-party APIs (Yelp, Google Places) to fetch the businesses near you.</p>
+
+      <h3>1.5 Wallet information (optional)</h3>
+      <p>If you configure a cryptocurrency receive address in GrubTrucks (currently XRP only), we store on your device:</p>
+      <ul>
+        <li>The <strong>receive address</strong> (a public, base58-encoded XRP Ledger address that begins with <code>r</code>).</li>
+        <li>The optional <strong>destination tag</strong>.</li>
+        <li>Your preferred <strong>QR encoding mode</strong>.</li>
+      </ul>
+      <p>This information is held in <strong>Apple Keychain</strong> with <code>ThisDeviceOnly</code> access — it does not sync to iCloud Keychain, is not transmitted to our servers, and is not migrated via backup. Signing out wipes it.</p>
+      <p>The address is <strong>public information</strong> by design. We never store, transmit, or have access to <strong>private keys or seed phrases</strong>, and we never custody, transmit, or process cryptocurrency funds.</p>
+
+      <h3>1.6 Information we do NOT collect</h3>
+      <ul>
+        <li>No IDFA, advertising identifiers, or cross-app tracking identifiers.</li>
+        <li>No contacts, calendars, photos from your camera roll, microphone audio, or HealthKit data.</li>
+        <li>No third-party analytics SDKs that track you across other apps or websites.</li>
+        <li>No tracking of your activity on other companies' apps or websites for advertising purposes.</li>
+      </ul>
+      <p>These choices are also declared in our <code>PrivacyInfo.xcprivacy</code> manifest file.</p>
+    </section>
+
+    <section class="section">
+      <h2>2. How we use information</h2>
+      <ul>
+        <li><strong>Authenticate you</strong> across sessions and devices via a JWT session token.</li>
+        <li><strong>Synchronize your favorites</strong> across devices signed in to the same GrubTrucks account.</li>
+        <li><strong>Render search results</strong> by querying Yelp and Google Places with your current location.</li>
+        <li><strong>Display restaurant details</strong> including hours, photos, and ratings sourced from Yelp and Google.</li>
+        <li><strong>Operate the Service</strong> — keep the app working, fix bugs, prevent abuse.</li>
+        <li><strong>Generate your QR code</strong> — when you have configured a wallet address.</li>
+      </ul>
+      <p>We do not use your information for advertising, profiling, or automated decision-making. We do not train AI/ML models on your data.</p>
+    </section>
+
+    <section class="section">
+      <h2>3. How we share information</h2>
+
+      <h3>3.1 Third-party services we send data to</h3>
+      <table class="legal">
+        <thead><tr><th>Service</th><th>What we send</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Yelp Fusion API</td><td>Your location and search terms</td><td>Fetch nearby food trucks and restaurants, business detail, reviews</td></tr>
+          <tr><td>Google Places API</td><td>Your location and search terms</td><td>Fetch nearby places, photos, hours</td></tr>
+          <tr><td>Apple ID Service</td><td>Identity-token request</td><td>Verify Sign in with Apple</td></tr>
+          <tr><td>Google Identity Service</td><td>Identity-token request</td><td>Verify Sign in with Google</td></tr>
+        </tbody>
+      </table>
+      <p>When you tap "Get Directions" or "Open in Uber"/"Open in Lyft", the app opens a deep-link URL with the destination coordinates. After that point, the third party handles the interaction under their own privacy policy, not this one.</p>
+
+      <h3>3.2 What we do NOT do</h3>
+      <ul>
+        <li>We do not sell your personal information.</li>
+        <li>We do not rent or trade your personal information.</li>
+        <li>We do not share your personal information with advertisers.</li>
+        <li>We do not transmit your location to our backend.</li>
+      </ul>
+
+      <h3>3.3 Legal disclosure</h3>
+      <p>We may disclose information if required by law, valid legal process, or to protect the rights, property, or safety of GrubTrucks, our users, or the public.</p>
+    </section>
+
+    <section class="section">
+      <h2>4. Data retention</h2>
+      <table class="legal">
+        <thead><tr><th>Category</th><th>Retention</th></tr></thead>
+        <tbody>
+          <tr><td>Account record (id, provider, email, name, role)</td><td>Until you delete your account or 24 months of inactivity, whichever comes first</td></tr>
+          <tr><td>Favorites</td><td>Until you remove them or delete your account</td></tr>
+          <tr><td>Yelp business records cached in our backend</td><td>24 hours maximum, per Yelp's API terms</td></tr>
+          <tr><td>Google Place data</td><td>Not retained — only the <code>place_id</code> is cached, per Google's API terms</td></tr>
+          <tr><td>In-memory caches on your device</td><td>Cleared on app termination, sign-out, or cache invalidation</td></tr>
+          <tr><td>Local preferences (UserDefaults)</td><td>Until you uninstall the app</td></tr>
+          <tr><td>Wallet address + destination tag (Apple Keychain, ThisDeviceOnly)</td><td>Until you remove it from Settings, sign out, or uninstall</td></tr>
+          <tr><td>iCloud Key-Value Store mirror of favorites</td><td>Until you sign out of iCloud or remove from cross-device sync</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>5. Your rights</h2>
+      <p>Depending on where you live, you may have the following rights:</p>
+      <ul>
+        <li><strong>Access</strong> — request a copy of the personal information we hold about you.</li>
+        <li><strong>Correction</strong> — ask us to correct inaccurate information.</li>
+        <li><strong>Deletion</strong> — ask us to delete your account and the personal information associated with it.</li>
+        <li><strong>Portability</strong> — receive your data in a machine-readable format.</li>
+        <li><strong>Objection / Restriction</strong> — object to or restrict certain processing.</li>
+      </ul>
+      <p>You can sign out of GrubTrucks at any time from within the app, which clears your session token from your device. To delete your account and all associated data, email <a class="inline" href="mailto:hello@grubtruck.app?subject=Account%20deletion%20request">hello@grubtruck.app</a> with the subject line "Account deletion request" from the email address associated with your account. We will confirm and complete the deletion within 30 days.</p>
+      <p>If you are in the <strong>European Economic Area, United Kingdom, or Switzerland</strong>, the legal basis for our processing is your consent (which you can withdraw at any time) or our legitimate interests in operating the Service. You have the right to lodge a complaint with your local data protection authority.</p>
+      <p>If you are a <strong>California resident</strong>, you have additional rights under the California Consumer Privacy Act (CCPA), including the right to know what personal information we collect and the right to opt out of the "sale" of personal information. GrubTrucks does not sell personal information.</p>
+    </section>
+
+    <section class="section">
+      <h2>6. Security</h2>
+      <p>We protect your information using:</p>
+      <ul>
+        <li><strong>Apple Keychain</strong> for storing your session token and account record on your device.</li>
+        <li><strong>HTTPS / TLS</strong> for all network connections to our backend and to third-party APIs.</li>
+        <li><strong>Certificate pinning</strong> on connections to our authentication backend.</li>
+        <li><strong>Server-side hashing and signing</strong> — your session token is a signed JWT; we do not store passwords.</li>
+      </ul>
+      <p>No security system is impenetrable. We cannot guarantee absolute security of your information, only that we follow current industry-standard practices.</p>
+    </section>
+
+    <section class="section">
+      <h2>7. Children's privacy</h2>
+      <p>GrubTrucks is not intended for use by children under 13 (or 16 in jurisdictions where that is the applicable age of digital consent). We do not knowingly collect personal information from children. If you are a parent or guardian and believe your child has provided us with personal information, contact us at <a class="inline" href="mailto:hello@grubtruck.app">hello@grubtruck.app</a> and we will delete it.</p>
+    </section>
+
+    <section class="section">
+      <h2>8. International users</h2>
+      <p>GrubTrucks is operated from the <strong>United States</strong>. If you use the Service from another country, you understand that your information may be transferred to, stored, and processed in the United States, where data protection laws may differ from those in your country.</p>
+    </section>
+
+    <section class="section">
+      <h2>9. Cryptocurrency wallet — non-custodial by design</h2>
+      <p>This section applies only when you choose to enable the optional cryptocurrency QR feature in Settings.</p>
+      <p>GrubTrucks operates as a <strong>non-custodial display layer</strong>. We do not, at any point in any flow:</p>
+      <ul>
+        <li>Take custody of cryptocurrency funds.</li>
+        <li>Hold balances on your behalf.</li>
+        <li>Transmit funds between you and another user.</li>
+        <li>Sign transactions for you.</li>
+        <li>Generate, store, or have access to your private keys or seed phrases.</li>
+      </ul>
+      <p>When someone scans your QR code with their own wallet app and elects to send a payment, <strong>the transaction is a direct peer-to-peer transfer over the XRP Ledger</strong> between the sender's wallet and the receive address you configured. GrubTrucks is not a party to that transaction.</p>
+      <p>You bear sole responsibility for the accuracy of the receive address you enter, the destination tag (if any), tax reporting and compliance, and securing your wallet outside of GrubTrucks.</p>
+      <p>GrubTrucks is <strong>not a financial advisor, exchange, broker, or custodian</strong>. Information in the app related to cryptocurrency is not financial advice.</p>
+    </section>
+
+    <section class="section">
+      <h2>10. Changes to this policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at the top and, for material changes, notify you in-app or by email. Your continued use of the Service after the changes take effect constitutes acceptance of the updated policy.</p>
+    </section>
+
+    <section class="section">
+      <h2>11. Contact</h2>
+      <p>Questions or requests about this Privacy Policy:</p>
+      <p><strong>Magpie Studios LLC</strong> (operator of GrubTrucks)<br />
+      <strong>Email:</strong> <a class="inline" href="mailto:hello@grubtruck.app">hello@grubtruck.app</a><br />
+      <strong>Address:</strong> Arizona, USA</p>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>GrubTrucks</h4>
+          <p>Real-time food truck discovery, built mobile-first. iOS launching soon.</p>
+        </div>
+        <div>
+          <h4>App</h4>
+          <ul>
+            <li><a href="help.html">User Manual</a></li>
+            <li><a href="for-trucks.html">For Operators</a></li>
+            <li><a href="mailto:hello@grubtruck.app">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="research.html">Labs</a></li>
+            <li><a href="https://magpiestudios.app">Magpie Studios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="colophon">
+        © 2026 GrubTrucks. A product of Magpie Studios LLC · Arizona, USA · All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

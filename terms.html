@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — GrubTrucks</title>
+  <meta name="description" content="GrubTrucks Terms of Service — eligibility, acceptable use, and our limitations." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:#FAF7F2; --cream-deep:#F2EDE2; --card:#F5EFE5;
+      --navy:#0B1F33; --navy-soft:#1F344A;
+      --orange:#C2410C; --orange-dark:#9A3412; --orange-soft:#F0DCC6;
+      --text:#1A1A1A; --muted:#6B6258; --border:#E5E0D5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif; color: var(--text);
+      line-height: 1.7; background: var(--cream); min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+    header.site-header { padding: 28px 0; border-bottom: 1px solid var(--border); }
+    .site-header .inner {
+      max-width: 960px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'Playfair Display', serif; font-weight: 800; font-size: 24px;
+      color: var(--navy); text-decoration: none; letter-spacing: -0.01em;
+    }
+    .brand .brand-mark {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--navy); color: var(--cream);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: 20px; font-style: italic;
+    }
+    .brand .accent { color: var(--orange); font-style: italic; }
+    nav.top-nav { display: flex; gap: 26px; }
+    nav.top-nav a { color: var(--navy); text-decoration: none; font-size: 15px; font-weight: 500; }
+    nav.top-nav a:hover { color: var(--orange); }
+
+    .hero { padding: 56px 0 24px; }
+    .eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: clamp(36px, 5vw, 50px); line-height: 1.1;
+      letter-spacing: -0.02em; color: var(--navy); margin-bottom: 16px;
+    }
+    .effective { font-size: 14px; color: var(--muted); margin-top: 8px; }
+
+    section.section { padding: 32px 0; border-top: 1px solid var(--border); }
+    section h2 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: 24px; margin-bottom: 12px; letter-spacing: -0.01em; color: var(--navy);
+    }
+    section h3 {
+      font-family: 'Inter', sans-serif; font-weight: 600;
+      font-size: 17px; margin: 18px 0 8px; color: var(--navy);
+    }
+    p { font-size: 16px; margin-bottom: 12px; color: var(--text); }
+    p strong { color: var(--navy); font-weight: 600; }
+    ul, ol { padding-left: 24px; margin-bottom: 14px; }
+    li { font-size: 16px; padding: 4px 0; }
+    li strong { color: var(--navy); font-weight: 600; }
+    a.inline { color: var(--orange-dark); text-decoration: underline; }
+    a.inline:hover { color: var(--orange); }
+    .legalese { font-size: 14px; color: var(--navy-soft); background: var(--card); padding: 16px 20px; border-radius: 10px; border-left: 4px solid var(--orange); }
+
+    footer.site-footer {
+      padding: 56px 0 36px; background: var(--navy);
+      color: var(--cream-deep); margin-top: 56px;
+    }
+    .site-footer .inner { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+    .site-footer .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 36px; margin-bottom: 32px;
+    }
+    .site-footer h4 {
+      font-family: 'Playfair Display', serif; font-size: 16px;
+      color: var(--cream); margin-bottom: 14px; font-weight: 700;
+    }
+    .site-footer ul { list-style: none; padding-left: 0; }
+    .site-footer li { margin-bottom: 8px; font-size: 14px; }
+    .site-footer a { color: var(--cream-deep); text-decoration: none; font-size: 14px; }
+    .site-footer a:hover { color: var(--orange); }
+    .site-footer .footer-brand p {
+      font-size: 14px; color: var(--cream-deep); opacity: 0.8;
+      margin-top: 10px; max-width: 280px;
+    }
+    .site-footer .colophon {
+      border-top: 1px solid rgba(250,247,242,0.12);
+      padding-top: 20px; font-size: 12px; opacity: 0.7;
+    }
+    @media (max-width: 720px) {
+      .site-footer .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav.top-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a href="/" class="brand">
+        <span class="brand-mark">G</span>
+        <span>Grub<span class="accent">Trucks</span></span>
+      </a>
+      <nav class="top-nav">
+        <a href="for-trucks.html">For Trucks</a>
+        <a href="help.html">Help</a>
+        <a href="about.html">About</a>
+        <a href="research.html">Labs</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section class="hero">
+      <span class="eyebrow">Legal</span>
+      <h1>Terms of Service</h1>
+      <p class="effective"><strong>Effective date:</strong> April 29, 2026 · <strong>Last updated:</strong> May 12, 2026</p>
+    </section>
+
+    <section class="section" style="border-top: none;">
+      <p>These Terms of Service (the "Terms") govern your use of the GrubTrucks mobile application and related services (collectively, the "Service"). The Service is provided by <strong>Magpie Studios LLC</strong> ("we", "us", or "our").</p>
+      <p>By creating an account, signing in, or otherwise using the Service, you agree to be bound by these Terms. If you do not agree, do not use the Service.</p>
+    </section>
+
+    <section class="section">
+      <h2>1. Eligibility</h2>
+      <p>You must be at least 13 years old (or 16 in jurisdictions where that is the digital consent age) to use the Service. If you are under the age of majority in your jurisdiction, you may use the Service only with the involvement and consent of a parent or legal guardian.</p>
+      <p>By using the Service you represent that you can form a binding contract with us and are not prohibited from doing so under the laws of your jurisdiction.</p>
+    </section>
+
+    <section class="section">
+      <h2>2. The Service</h2>
+      <p>GrubTrucks helps you discover food trucks, restaurants, and similar businesses near you, by aggregating publicly-available business information from third-party providers (currently <strong>Yelp</strong> and <strong>Google Places</strong>) into a single mobile interface.</p>
+      <p>The Service includes features for browsing and searching nearby food businesses, saving favorites that sync across your devices, viewing business details (hours, photos, ratings), linking out to navigation apps for directions, and linking out to ride-share apps (Uber, Lyft).</p>
+      <p>We do not operate, own, or warrant any of the food businesses listed in the Service. We do not handle reservations or orders.</p>
+      <p>You may optionally configure a cryptocurrency receive address in Settings, which we encode into a QR code displayed on your profile. <strong>We do not handle, custody, transmit, or process payments.</strong> Any cryptocurrency transaction made by another user who scans your QR is a direct peer-to-peer transfer between that user's wallet and the address you control. See Section 7 for details.</p>
+    </section>
+
+    <section class="section">
+      <h2>3. Your account</h2>
+      <h3>3.1 Sign-in</h3>
+      <p>You sign in to GrubTrucks using <strong>Sign in with Apple</strong> or <strong>Sign in with Google</strong>. We do not maintain a password-based system. Your access depends on your continued ability to authenticate with the chosen provider.</p>
+      <h3>3.2 Account responsibility</h3>
+      <p>You are responsible for activity that occurs under your GrubTrucks account. Notify us promptly at <a class="inline" href="mailto:hello@grubtruck.app">hello@grubtruck.app</a> if you become aware of unauthorized access to or use of your account.</p>
+      <h3>3.3 One account per person</h3>
+      <p>You may only create one GrubTrucks account per Apple ID and one per Google account. You may not transfer or share your account with another person.</p>
+      <h3>3.4 Termination of your account</h3>
+      <p>You may stop using the Service at any time by signing out and uninstalling the app. To delete your account and your associated data, follow the instructions in our <a class="inline" href="privacy.html">Privacy Policy</a>.</p>
+      <p>We may suspend or terminate your access to the Service at any time, with or without notice, if we believe you have violated these Terms or if continued provision of the Service to you becomes infeasible.</p>
+    </section>
+
+    <section class="section">
+      <h2>4. Acceptable use</h2>
+      <p>You agree NOT to:</p>
+      <ul>
+        <li>Reverse engineer, decompile, disassemble, or otherwise attempt to extract the source code of the Service, except to the extent this restriction is prohibited by applicable law.</li>
+        <li>Scrape, bulk-download, or systematically harvest data from the Service or our backend APIs.</li>
+        <li>Bypass or attempt to bypass authentication, certificate pinning, rate limits, or other security or access-control measures.</li>
+        <li>Misrepresent your identity or your affiliation with any person or entity, including by submitting falsified Apple/Google identity tokens.</li>
+        <li>Use the Service to send spam, harass, defame, or harm other users or any third party.</li>
+        <li>Use the Service to violate any applicable law or regulation.</li>
+        <li>Use the Service to develop, train, or fine-tune any AI or machine-learning model on data sourced from Yelp, Google, or other third-party API providers (this is prohibited by their respective terms and we are required to enforce it).</li>
+        <li>Use the Service in any way that could damage, disable, overburden, or impair our infrastructure or any third-party service we rely on.</li>
+        <li>Attempt to interfere with the proper functioning of the Service.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>5. Third-party content and services</h2>
+      <h3>5.1 Aggregated data</h3>
+      <p>Business listings, ratings, photos, hours, and reviews shown in the Service are sourced from third-party providers (Yelp, Google Places). We do not author or verify this content. <strong>Information may be incomplete, out of date, or incorrect.</strong> Always verify critical details (hours, address, dietary restrictions, dietary content) directly with the business before relying on them.</p>
+      <h3>5.2 Third-party links and apps</h3>
+      <p>The Service includes deep-link affordances to Apple Maps, Google Maps, Waze, Yelp, Uber, and Lyft. When you tap one of these affordances, you leave GrubTrucks and your interaction with that third-party service is governed by their respective terms and privacy policies, not these Terms.</p>
+      <h3>5.3 Compliance with third-party terms</h3>
+      <p>By using the Service, you also agree to comply with the terms of any third-party services we surface (Yelp, Google Maps Platform, Sign in with Apple, Uber deep-link terms, Lyft deep-link terms).</p>
+    </section>
+
+    <section class="section">
+      <h2>6. Intellectual property</h2>
+      <h3>6.1 Our property</h3>
+      <p>The GrubTrucks app, its source code, design, branding, documentation, and any other materials we create are owned by us or our licensors and are protected by copyright, trademark, and other intellectual property laws. We grant you a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to install and use the Service on devices you own or control, for personal non-commercial purposes, subject to these Terms.</p>
+      <h3>6.2 Third-party trademarks</h3>
+      <p>Yelp, Google, Apple, Waze, Uber, Lyft, and other names and logos shown in the Service are the trademarks of their respective owners. Their inclusion does not imply endorsement of GrubTrucks by those parties.</p>
+      <h3>6.3 Your content</h3>
+      <p>You retain ownership of any content you create, including the list of businesses you favorite. You grant us a limited license to store, transmit, and display that content as needed to operate the Service.</p>
+    </section>
+
+    <section class="section">
+      <h2>7. Cryptocurrency wallet — non-custodial</h2>
+      <p>This section governs the optional cryptocurrency QR feature. If you do not configure a wallet, this section does not apply to you.</p>
+      <h3>7.1 Non-custodial nature</h3>
+      <p>GrubTrucks is <strong>not</strong> a cryptocurrency exchange, broker, custodian, or money transmitter. We do not hold or have access to your cryptocurrency funds, private keys, or seed phrases. We do not initiate, sign, or transmit cryptocurrency transactions on your behalf. We do not match buyers and sellers, route payments, or settle balances.</p>
+      <p>When you configure a receive address in Settings, we store that public address on your device and encode it into a QR code. That is the entirety of the feature.</p>
+      <h3>7.2 Direct peer-to-peer transfers</h3>
+      <p>Any cryptocurrency payment made by another person who scans your QR code is a direct peer-to-peer transfer over the XRP Ledger between that person's wallet and the address you provided. GrubTrucks is not a party to the transaction. We have no ability to reverse, cancel, freeze, or modify the transaction once it is broadcast.</p>
+      <h3>7.3 Your responsibilities</h3>
+      <ul>
+        <li>The <strong>accuracy</strong> of the receive address you enter. Cryptocurrency transactions are <strong>permanent and irreversible</strong>.</li>
+        <li>The <strong>destination tag</strong>, when applicable.</li>
+        <li><strong>Choosing and securing</strong> the wallet whose address you display.</li>
+        <li><strong>Tax reporting</strong> and compliance with the laws of your jurisdiction.</li>
+        <li><strong>Sanctions and regulatory compliance</strong>.</li>
+      </ul>
+      <h3>7.4 Not financial advice</h3>
+      <p>Nothing in the Service related to cryptocurrency is financial, investment, tax, or legal advice. Consult qualified professionals before making any financial decision.</p>
+      <h3>7.5 Feature changes and removal</h3>
+      <p>We may modify, restrict, or remove the cryptocurrency QR feature at any time without notice, including in response to legal, regulatory, or platform-policy requirements.</p>
+    </section>
+
+    <section class="section">
+      <h2>8. Disclaimers</h2>
+      <div class="legalese">
+        <p>THE SERVICE IS PROVIDED <strong>"AS IS"</strong> AND <strong>"AS AVAILABLE"</strong>, WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. WE SPECIFICALLY DISCLAIM THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND ACCURACY OF DATA.</p>
+      </div>
+      <p style="margin-top: 12px;">We do not warrant that the Service will be uninterrupted, timely, secure, or error-free; that displayed information (business hours, ratings, photos, addresses, contact info) is accurate, current, or complete; that any listed third party is open, operating, reputable, safe, or food-safety-compliant; or that any food or service you obtain through following a GrubTrucks listing meets your expectations.</p>
+      <p>You are solely responsible for verifying any information displayed in the Service before relying on it.</p>
+    </section>
+
+    <section class="section">
+      <h2>9. Limitation of liability</h2>
+      <div class="legalese">
+        <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL GRUBTRUCKS, ITS OWNERS, OR ITS CONTRIBUTORS BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES, INCLUDING WITHOUT LIMITATION DAMAGES FOR LOST PROFITS, LOST REVENUE, LOST DATA, BUSINESS INTERRUPTION, OR PERSONAL INJURY, ARISING OUT OF OR RELATING TO YOUR USE OF THE SERVICE.</p>
+        <p style="margin-top: 8px;">OUR AGGREGATE LIABILITY TO YOU FOR ALL CLAIMS ARISING OUT OF OR RELATED TO THESE TERMS OR YOUR USE OF THE SERVICE IS LIMITED TO THE GREATER OF (A) ONE HUNDRED U.S. DOLLARS ($100) OR (B) THE TOTAL FEES YOU PAID US IN THE TWELVE MONTHS IMMEDIATELY PRECEDING THE EVENT GIVING RISE TO THE CLAIM.</p>
+      </div>
+      <p style="margin-top: 12px;">Some jurisdictions do not allow the exclusion or limitation of certain damages. In those jurisdictions our liability will be limited to the maximum extent permitted by law.</p>
+    </section>
+
+    <section class="section">
+      <h2>10. Indemnification</h2>
+      <p>You agree to indemnify and hold harmless GrubTrucks, its owners, and its contributors from and against any claims, damages, losses, liabilities, costs, and expenses (including reasonable legal fees) arising out of or related to your use of the Service in violation of these Terms; your violation of any third party's rights, including intellectual-property or privacy rights; or your violation of any applicable law or regulation.</p>
+    </section>
+
+    <section class="section">
+      <h2>11. Termination</h2>
+      <p>These Terms remain in effect while you use the Service. You may end your use at any time. We may terminate or suspend your access to the Service for any reason, including if you violate these Terms. The provisions of Sections 4 (Acceptable use), 5 (Third-party content), 6 (Intellectual property), 7 (Crypto wallet), 8 (Disclaimers), 9 (Limitation of liability), 10 (Indemnification), and 12 (Governing law) survive termination.</p>
+    </section>
+
+    <section class="section">
+      <h2>12. Governing law and disputes</h2>
+      <p>These Terms are governed by the laws of the <strong>State of Arizona, USA</strong>, without regard to its conflict-of-laws principles.</p>
+      <p>Any dispute arising out of or relating to these Terms or your use of the Service will be resolved exclusively in the state or federal courts located in <strong>Maricopa County, Arizona</strong>, and you consent to the personal jurisdiction of those courts.</p>
+      <p>If you are a consumer in the European Union or United Kingdom, nothing in this Section limits any rights you may have under mandatory consumer-protection laws of your country of residence.</p>
+    </section>
+
+    <section class="section">
+      <h2>13. Changes to these Terms</h2>
+      <p>We may update these Terms from time to time. When we do, we will revise the "Last updated" date at the top and, for material changes, notify you in-app. Your continued use of the Service after the changes take effect means you accept the updated Terms.</p>
+    </section>
+
+    <section class="section">
+      <h2>14. Miscellaneous</h2>
+      <ul>
+        <li><strong>Entire agreement.</strong> These Terms, together with the <a class="inline" href="privacy.html">Privacy Policy</a>, constitute the entire agreement between you and us regarding the Service.</li>
+        <li><strong>Severability.</strong> If any provision of these Terms is found unenforceable, the remaining provisions remain in full force and effect.</li>
+        <li><strong>No waiver.</strong> Our failure to enforce a provision is not a waiver of our right to enforce it later.</li>
+        <li><strong>Assignment.</strong> You may not assign these Terms. We may assign these Terms to a successor in connection with a merger, acquisition, or sale of assets.</li>
+        <li><strong>Force majeure.</strong> Neither party is liable for failure to perform due to causes beyond reasonable control.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>15. Contact</h2>
+      <p>Questions about these Terms:</p>
+      <p><strong>Magpie Studios LLC</strong> (operator of GrubTrucks)<br />
+      <strong>Email:</strong> <a class="inline" href="mailto:hello@grubtruck.app">hello@grubtruck.app</a><br />
+      <strong>Address:</strong> Arizona, USA</p>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>GrubTrucks</h4>
+          <p>Real-time food truck discovery, built mobile-first. iOS launching soon.</p>
+        </div>
+        <div>
+          <h4>App</h4>
+          <ul>
+            <li><a href="help.html">User Manual</a></li>
+            <li><a href="for-trucks.html">For Operators</a></li>
+            <li><a href="mailto:hello@grubtruck.app">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="research.html">Labs</a></li>
+            <li><a href="https://magpiestudios.app">Magpie Studios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="colophon">
+        © 2026 GrubTrucks. A product of Magpie Studios LLC · Arizona, USA · All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

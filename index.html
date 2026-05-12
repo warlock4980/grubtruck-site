@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrubTrucks — Find every food truck near you.</title>
+  <meta name="description" content="Open the app, see what's open, what's nearby, and how to get there. Real-time food truck discovery for hungry humans." />
+  <meta property="og:title" content="GrubTrucks — Find every food truck near you." />
+  <meta property="og:description" content="Real-time food truck discovery. What's open, what's nearby, how to get there." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://grubtruck.app/hero-grid.png" />
+  <meta property="og:url" content="https://grubtruck.app" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://grubtruck.app/hero-grid.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:      #FAF7F2;
+      --cream-deep: #F2EDE2;
+      --card:       #F5EFE5;
+      --navy:       #0B1F33;
+      --navy-soft:  #1F344A;
+      --orange:     #C2410C;
+      --orange-dark:#9A3412;
+      --orange-soft:#F0DCC6;
+      --text:       #1A1A1A;
+      --muted:      #6B6258;
+      --border:     #E5E0D5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+      background: var(--cream);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+    .container-narrow { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+
+    header.site-header {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--cream);
+    }
+    .site-header .container {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .brand .brand-mark {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--cream);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 20px;
+      font-style: italic;
+    }
+    .brand .accent { color: var(--orange); font-style: italic; }
+    nav.top-nav { display: flex; gap: 26px; align-items: center; }
+    nav.top-nav a {
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    nav.top-nav a:hover { color: var(--orange); }
+
+    .hero { padding: 88px 0 56px; text-align: center; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      font-size: clamp(44px, 7vw, 76px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin-bottom: 22px;
+      max-width: 880px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 em { font-style: italic; color: var(--orange); font-weight: 800; }
+    .hero .tagline {
+      font-size: clamp(18px, 2.4vw, 22px);
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 36px;
+      line-height: 1.55;
+    }
+
+    .cta-row { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 12px; }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: var(--cream);
+      padding: 16px 32px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s, background 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .cta:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    .cta-secondary {
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid var(--navy);
+    }
+    .cta-secondary:hover { background: var(--navy); color: var(--cream); }
+    .cta-note { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+    .hero-image {
+      margin: 56px auto 0;
+      max-width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 18px 48px rgba(11, 31, 51, 0.18);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .hero-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    section.section { padding: 72px 0; border-top: 1px solid var(--border); }
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 14px;
+    }
+    .section h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(30px, 4vw, 44px);
+      letter-spacing: -0.01em;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .section h2 em { font-style: italic; color: var(--orange); }
+    .section .lede {
+      font-size: 19px;
+      color: var(--navy-soft);
+      max-width: 640px;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+      margin-top: 36px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    .feature-card .icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+    .feature-card h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--navy);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .feature-card p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .how-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+      margin-top: 36px;
+    }
+    .step {
+      padding: 24px 0;
+      border-top: 2px solid var(--orange);
+    }
+    .step .num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 32px;
+      color: var(--orange);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .step h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .step p { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+    .pullquote {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.35;
+      color: var(--navy);
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .pullquote::before, .pullquote::after {
+      content: '"';
+      color: var(--orange);
+      font-size: 1.5em;
+      line-height: 0.5;
+      vertical-align: -0.2em;
+    }
+    .pullquote-attr {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 16px;
+      font-weight: 500;
+    }
+
+    .small-trucks-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 36px;
+    }
+    .small-trucks-row img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    @media (max-width: 640px) {
+      .small-trucks-row { grid-template-columns: 1fr; }
+      nav.top-nav { display: none; }
+    }
+
+    footer.site-footer {
+      padding: 56px 0 36px;
+      background: var(--navy);
+      color: var(--cream-deep);
+      margin-top: 72px;
+    }
+    .site-footer .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 32px;
+    }
+    .site-footer h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 16px;
+      color: var(--cream);
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+    .site-footer ul { list-style: none; }
+    .site-footer li { margin-bottom: 8px; }
+    .site-footer a { color: var(--cream-deep); text-decoration: none; font-size: 14px; }
+    .site-footer a:hover { color: var(--orange); }
+    .site-footer .footer-brand p {
+      font-size: 14px;
+      color: var(--cream-deep);
+      opacity: 0.8;
+      margin-top: 10px;
+      max-width: 280px;
+    }
+    .site-footer .colophon {
+      border-top: 1px solid rgba(250, 247, 242, 0.12);
+      padding-top: 20px;
+      font-size: 12px;
+      color: var(--cream-deep);
+      opacity: 0.7;
+    }
+    @media (max-width: 720px) {
+      .site-footer .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    #cookie-consent {
+      position: fixed; bottom: 16px; left: 16px; right: 16px;
+      max-width: 720px; margin: 0 auto;
+      background: var(--navy); color: var(--cream);
+      padding: 20px 24px; border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      z-index: 10000;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; line-height: 1.5;
+    }
+    #cookie-consent p { margin: 0 0 12px; color: var(--cream); font-size: 14px; }
+    #cookie-consent a { color: var(--orange-soft); text-decoration: underline; }
+    #cookie-consent .cc-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    #cookie-consent button {
+      background: var(--orange); color: var(--cream); border: none;
+      padding: 8px 18px; border-radius: 8px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      font-family: inherit;
+    }
+    #cookie-consent button:hover { background: var(--orange-dark); }
+    #cookie-consent .decline {
+      background: transparent; color: var(--cream);
+      border: 1px solid rgba(250, 247, 242, 0.5);
+    }
+    #cookie-consent .decline:hover { background: rgba(255,255,255,0.08); }
+  </style>
+
+  <!-- Google Analytics 4 with Consent Mode v2 (placeholder ID) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+    try {
+      if (localStorage.getItem('grubtruck-analytics-consent') === 'granted') {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      }
+    } catch (e) {}
+    gtag('js', new Date());
+    gtag('config', 'G-PLACEHOLDER', { 'anonymize_ip': true });
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand">
+        <span class="brand-mark">G</span>
+        <span>Grub<span class="accent">Trucks</span></span>
+      </a>
+      <nav class="top-nav">
+        <a href="for-trucks.html">For Trucks</a>
+        <a href="help.html">Help</a>
+        <a href="about.html">About</a>
+        <a href="research.html">Labs</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section class="hero">
+      <span class="eyebrow">Find food trucks near you</span>
+      <h1>The trucks are out there. <em>We help you find them.</em></h1>
+      <p class="tagline">Open the app. See what's open, what's nearby, and how to get there — in seconds. No more standing on a corner second-guessing dinner.</p>
+      <div class="cta-row">
+        <a class="cta" href="mailto:hello@grubtruck.app?subject=GrubTrucks%20waitlist&body=Add%20me%20to%20the%20launch%20list.">Join the waitlist</a>
+        <a class="cta cta-secondary" href="#how-it-works">See how it works</a>
+      </div>
+      <p class="cta-note">iOS launching soon. Android in development.</p>
+
+      <div class="hero-image">
+        <img src="hero-grid.png" alt="A grid of nine food trucks in different colors and city settings — GrubTrucks discovers every truck in every neighborhood." />
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-eyebrow">What it does</div>
+      <h2>A truck-finder built for <em>real, hungry days</em>.</h2>
+      <p class="lede">Most apps treat food trucks like an afterthought to brick-and-mortar restaurants. We built GrubTrucks as the opposite: trucks first, mobile-first, real-time first.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="icon">📍</span>
+          <h3>Open right now</h3>
+          <p>The map only shows trucks that are actually serving at this moment. No more driving to a closed parking lot.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">🚚</span>
+          <h3>Trucks, not chains</h3>
+          <p>We don't surface fast-food locations or sit-down restaurants. Just the trucks — independent, local, mobile.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">🧭</span>
+          <h3>One tap to drive</h3>
+          <p>Pick a truck, get directions instantly via Apple Maps, Google Maps, or your favorite rideshare app.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">⭐</span>
+          <h3>Save your favorites</h3>
+          <p>Found a truck you love? Save it. We'll surface it when it's near you, and warn you when it moves.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="section-eyebrow">How it works</div>
+      <h2>Three taps to lunch.</h2>
+
+      <div class="how-row">
+        <div class="step">
+          <span class="num">01</span>
+          <h3>Open the app</h3>
+          <p>The map snaps to your location. Trucks open right now appear as warm dots; closed trucks disappear from the view.</p>
+        </div>
+        <div class="step">
+          <span class="num">02</span>
+          <h3>Tap a truck</h3>
+          <p>See its menu, hours today, current location, customer photos, and how far it is from you.</p>
+        </div>
+        <div class="step">
+          <span class="num">03</span>
+          <h3>Drive (or ride)</h3>
+          <p>One tap routes you in Apple Maps, Google Maps, Waze, Uber, or Lyft. You're eating within fifteen minutes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <p class="pullquote">
+        Ever stood on a street corner trying to find a food truck and ended up at a chain restaurant instead? GrubTrucks is the app that fixes that.
+        <span class="pullquote-attr">— GrubTrucks User Manual, Page 1</span>
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">For truck owners</div>
+      <h2>You own the truck. <em>We help people find it.</em></h2>
+      <p class="lede">If you're an operator, list your truck with GrubTrucks. Update your location and hours from your phone; customers get pinged when you're near them.</p>
+      <div class="cta-row">
+        <a class="cta" href="for-trucks.html">For Operators →</a>
+      </div>
+
+      <div class="small-trucks-row">
+        <img src="truck-blue.png" alt="Blue Haven Burgers — daytime, NYC waterfront" />
+        <img src="truck-red.png" alt="Crimson Grill — evening, urban plaza" />
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>GrubTrucks</h4>
+          <p>Real-time food truck discovery, built mobile-first. iOS launching soon.</p>
+        </div>
+        <div>
+          <h4>App</h4>
+          <ul>
+            <li><a href="help.html">User Guide</a></li>
+            <li><a href="for-trucks.html">For Operators</a></li>
+            <li><a href="mailto:hello@grubtruck.app">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="research.html">Labs</a></li>
+            <li><a href="https://magpiestudios.app">Magpie Studios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="colophon">
+        © 2026 GrubTrucks. A product of Magpie Studios LLC · Arizona, USA · All rights reserved.
+        <br />
+        GrubTrucks and the GrubTrucks word mark are trademarks of Magpie Studios LLC.
+      </div>
+    </div>
+  </footer>
+
+  <div id="cookie-consent" hidden role="dialog" aria-labelledby="cookie-consent-title">
+    <p id="cookie-consent-title">
+      We use Google Analytics (with your consent) to count aggregate visits to grubtruck.app. No personal information is collected without your okay. See our <a href="privacy.html">Privacy Policy</a>.
+    </p>
+    <div class="cc-actions">
+      <button type="button" id="cookie-consent-accept">Accept analytics</button>
+      <button type="button" class="decline" id="cookie-consent-decline">Decline</button>
+    </div>
+  </div>
+  <script>
+  (function() {
+    var key = 'grubtruck-analytics-consent';
+    var banner = document.getElementById('cookie-consent');
+    if (!banner) return;
+    try {
+      var existing = localStorage.getItem(key);
+      if (existing === 'granted' || existing === 'denied') return;
+    } catch (e) {}
+    banner.hidden = false;
+    document.getElementById('cookie-consent-accept').addEventListener('click', function() {
+      try { localStorage.setItem(key, 'granted'); } catch (e) {}
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      }
+      banner.hidden = true;
+    });
+    document.getElementById('cookie-consent-decline').addEventListener('click', function() {
+      try { localStorage.setItem(key, 'denied'); } catch (e) {}
+      banner.hidden = true;
+    });
+  })();
+  </script>
+</body>
+</html>

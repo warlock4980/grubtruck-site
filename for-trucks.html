@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Truck Operators — GrubTrucks</title>
+  <meta name="description" content="List your food truck on GrubTrucks. Free, mobile-first, no commission. Built for operators." />
+  <meta property="og:title" content="For Truck Operators — GrubTrucks" />
+  <meta property="og:description" content="List your food truck on GrubTrucks. Free, mobile-first, no commission." />
+  <meta property="og:url" content="https://grubtruck.app/for-trucks.html" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:#FAF7F2; --cream-deep:#F2EDE2; --card:#F5EFE5;
+      --navy:#0B1F33; --navy-soft:#1F344A;
+      --orange:#C2410C; --orange-dark:#9A3412; --orange-soft:#F0DCC6;
+      --text:#1A1A1A; --muted:#6B6258; --border:#E5E0D5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif; color: var(--text);
+      line-height: 1.65; background: var(--cream); min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+    .container-wide { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+
+    header.site-header { padding: 28px 0; border-bottom: 1px solid var(--border); }
+    .site-header .inner {
+      max-width: 960px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'Playfair Display', serif; font-weight: 800; font-size: 24px;
+      color: var(--navy); text-decoration: none; letter-spacing: -0.01em;
+    }
+    .brand .brand-mark {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--navy); color: var(--cream);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: 20px; font-style: italic;
+    }
+    .brand .accent { color: var(--orange); font-style: italic; }
+    nav.top-nav { display: flex; gap: 26px; }
+    nav.top-nav a { color: var(--navy); text-decoration: none; font-size: 15px; font-weight: 500; }
+    nav.top-nav a:hover { color: var(--orange); }
+
+    .hero { padding: 80px 0 48px; text-align: center; }
+    .eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: clamp(40px, 6vw, 64px); line-height: 1.05;
+      letter-spacing: -0.02em; color: var(--navy);
+      margin: 0 auto 20px; max-width: 800px;
+    }
+    .hero h1 em { font-style: italic; color: var(--orange); }
+    .hero .tagline {
+      font-size: clamp(18px, 2.4vw, 22px); color: var(--muted);
+      max-width: 580px; margin: 0 auto 32px; line-height: 1.55;
+    }
+    .cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--orange); color: var(--cream);
+      padding: 16px 32px; border-radius: 999px;
+      font-size: 16px; font-weight: 600; text-decoration: none;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .cta:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+    .hero-image {
+      margin: 48px auto 0; max-width: 900px;
+      border-radius: 16px; box-shadow: 0 18px 48px rgba(11,31,51,0.18);
+      overflow: hidden; border: 1px solid var(--border);
+    }
+    .hero-image img { display: block; width: 100%; height: auto; }
+
+    section.section { padding: 64px 0; border-top: 1px solid var(--border); }
+    .section-eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 14px;
+    }
+    section h2 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.01em;
+      color: var(--navy); line-height: 1.15; margin-bottom: 16px;
+    }
+    section h2 em { font-style: italic; color: var(--orange); }
+    section .lede {
+      font-size: 18px; color: var(--navy-soft);
+      max-width: 600px; margin-bottom: 28px; line-height: 1.6;
+    }
+
+    ul.values { list-style: none; padding: 0; margin: 14px 0; }
+    ul.values li {
+      padding: 14px 0 14px 28px; position: relative; font-size: 17px;
+    }
+    ul.values li::before {
+      content: "→"; color: var(--orange);
+      position: absolute; left: 0; font-weight: 600;
+    }
+    ul.values li strong { color: var(--navy); font-weight: 600; }
+
+    .pricing-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 36px; margin: 28px 0;
+      text-align: center;
+    }
+    .pricing-card .big {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: 48px; color: var(--navy); margin-bottom: 8px;
+    }
+    .pricing-card .label {
+      font-size: 14px; color: var(--muted);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .pricing-card .desc { font-size: 16px; color: var(--text); max-width: 500px; margin: 0 auto; }
+
+    .faq-item { margin: 20px 0; }
+    .faq-item h3 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: 20px; color: var(--navy); margin-bottom: 8px;
+    }
+    .faq-item p { font-size: 16px; color: var(--text); }
+
+    a.inline { color: var(--orange-dark); text-decoration: underline; }
+    a.inline:hover { color: var(--orange); }
+
+    footer.site-footer {
+      padding: 56px 0 36px; background: var(--navy);
+      color: var(--cream-deep); margin-top: 64px;
+    }
+    .site-footer .inner { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+    .site-footer .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 36px; margin-bottom: 32px;
+    }
+    .site-footer h4 {
+      font-family: 'Playfair Display', serif; font-size: 16px;
+      color: var(--cream); margin-bottom: 14px; font-weight: 700;
+    }
+    .site-footer ul { list-style: none; }
+    .site-footer li { margin-bottom: 8px; }
+    .site-footer a { color: var(--cream-deep); text-decoration: none; font-size: 14px; }
+    .site-footer a:hover { color: var(--orange); }
+    .site-footer .footer-brand p {
+      font-size: 14px; color: var(--cream-deep); opacity: 0.8;
+      margin-top: 10px; max-width: 280px;
+    }
+    .site-footer .colophon {
+      border-top: 1px solid rgba(250,247,242,0.12);
+      padding-top: 20px; font-size: 12px; opacity: 0.7;
+    }
+    @media (max-width: 720px) {
+      .site-footer .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav.top-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a href="/" class="brand">
+        <span class="brand-mark">G</span>
+        <span>Grub<span class="accent">Trucks</span></span>
+      </a>
+      <nav class="top-nav">
+        <a href="for-trucks.html">For Trucks</a>
+        <a href="help.html">Help</a>
+        <a href="about.html">About</a>
+        <a href="research.html">Labs</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container-wide">
+
+    <section class="hero">
+      <span class="eyebrow">For truck operators</span>
+      <h1>You own the truck. <em>We help people find it.</em></h1>
+      <p class="tagline">List your food truck on GrubTrucks. Free. No commission. No long-term contract. Built by someone who's tired of watching small operators get squeezed by every other "marketplace" out there.</p>
+      <a class="cta" href="mailto:hello@grubtruck.app?subject=I%20want%20to%20list%20my%20truck&body=Truck%20name%3A%20%0ACity%2Fregion%3A%20%0AInstagram%20or%20website%20(optional)%3A%20%0A%0AAnything%20else%20I%20should%20know%3A%20%0A">Email us to get listed →</a>
+
+      <div class="hero-image">
+        <img src="truck-names.png" alt="Two food trucks — Blue Haven Burgers (daytime, waterfront) and Crimson Grill (evening, plaza) — both styled in editorial photography." />
+      </div>
+    </section>
+
+  </div>
+
+  <div class="container">
+
+    <section class="section">
+      <div class="section-eyebrow">Why GrubTrucks</div>
+      <h2>Built for <em>operators</em>, not for ad networks.</h2>
+      <p class="lede">Most food-discovery apps treat trucks as a side category to chain restaurants. We built GrubTrucks as the opposite. The whole product is shaped around the way trucks actually work.</p>
+
+      <ul class="values">
+        <li><strong>Free to list.</strong> No monthly fee, no per-order commission, no "promoted" pay-to-play. We don't take a cut of your sales because we don't touch your sales.</li>
+        <li><strong>Real-time hours and location.</strong> Update from your phone in seconds. The status pill on each truck card tells customers instantly whether you're open right now, closing soon, or on a break.</li>
+        <li><strong>One-tap directions to where you actually are.</strong> Apple Maps, Google Maps, Waze, Uber, Lyft — your customers pick how they get to you.</li>
+        <li><strong>Trucks first, always.</strong> We don't surface chain restaurants alongside you. When a customer opens the app, they came here to find a truck.</li>
+        <li><strong>No data brokering.</strong> We don't sell your customer-traffic data. We don't run an ad business. We don't sync to a third-party CRM you didn't authorize.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Pricing</div>
+      <h2>Free, on purpose.</h2>
+
+      <div class="pricing-card">
+        <div class="big">$0</div>
+        <div class="label">per month · per listing · forever</div>
+        <p class="desc">No setup fee, no monthly fee, no commission on orders. The business model long-term is closer to an optional tip jar than a marketplace tax. Operators can support the project if they want to. They never have to.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">How to get listed</div>
+      <h2>Three steps. <em>Most done by us.</em></h2>
+
+      <ul class="values">
+        <li><strong>1. Email us.</strong> Tell us the truck's name, city, and any existing web presence (Instagram, website, Facebook, whatever you have). We do the heavy lifting from there.</li>
+        <li><strong>2. We onboard you.</strong> We send you the operator manual, a verification step (we don't want random people listing trucks they don't own), and a short call or message thread if you'd like.</li>
+        <li><strong>3. You take control.</strong> Once verified, you switch to Vendor mode in the GrubTrucks app and run your listing from your phone. Locations, hours, menu, photos — all under your control.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Frequently asked</div>
+      <h2>Practical questions.</h2>
+
+      <div class="faq-item">
+        <h3>What does GrubTrucks actually need from me?</h3>
+        <p>The truck's name, the cuisine type, where you typically operate, and your hours. Photos help but aren't required. Menus with prices help customers commit; you can update them anytime.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Do I have to commit to anything?</h3>
+        <p>No. You can pull your listing at any time. No early-termination fee because there's no contract to begin with.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Will my customers see ads next to my listing?</h3>
+        <p>No. There are no ads in GrubTrucks. There is no plan to introduce ads. The whole experience is built around trucks, not around monetizing attention.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I update my location from my phone?</h3>
+        <p>Yes — that's the entire point of Vendor mode. Open the app, tap your truck, hit "Update location." Customers see the new position within seconds.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What about tips, payments, online ordering?</h3>
+        <p>GrubTrucks does not currently process payments or take orders on your behalf — we don't want to be in the middle of your transactions. The optional XRP wallet feature lets customers send a tip directly to a wallet address you publish; we never touch the funds. Future features will preserve that "we don't sit between you and your customer" principle.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>I run multiple trucks. Can I list all of them?</h3>
+        <p>Yes. Each truck is its own listing, all managed from the same Vendor account.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Ready to list?</h2>
+      <p class="lede">Email us with your truck's name and city. We'll write back within 48 hours on business days, send you the operator manual, and walk you through verification.</p>
+      <a class="cta" href="mailto:hello@grubtruck.app?subject=I%20want%20to%20list%20my%20truck&body=Truck%20name%3A%20%0ACity%2Fregion%3A%20%0AInstagram%20or%20website%20(optional)%3A%20%0A%0AAnything%20else%20I%20should%20know%3A%20%0A">Email us to get listed →</a>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>GrubTrucks</h4>
+          <p>Real-time food truck discovery, built mobile-first. iOS launching soon.</p>
+        </div>
+        <div>
+          <h4>App</h4>
+          <ul>
+            <li><a href="help.html">User Manual</a></li>
+            <li><a href="for-trucks.html">For Operators</a></li>
+            <li><a href="mailto:hello@grubtruck.app">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="research.html">Labs</a></li>
+            <li><a href="https://magpiestudios.app">Magpie Studios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="colophon">
+        © 2026 GrubTrucks. A product of Magpie Studios LLC · Arizona, USA · All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

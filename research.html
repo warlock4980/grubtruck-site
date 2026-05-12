@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labs — GrubTrucks</title>
+  <meta name="description" content="Magpie Labs: the research arm of the studio behind GrubTrucks. Active projects in machine learning, Kaggle competitions, and product R&D." />
+  <meta property="og:title" content="Labs — GrubTrucks" />
+  <meta property="og:description" content="The research arm of the studio behind GrubTrucks." />
+  <meta property="og:url" content="https://grubtruck.app/research.html" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream:#FAF7F2; --cream-deep:#F2EDE2; --card:#F5EFE5;
+      --navy:#0B1F33; --navy-soft:#1F344A;
+      --orange:#C2410C; --orange-dark:#9A3412; --orange-soft:#F0DCC6;
+      --text:#1A1A1A; --muted:#6B6258; --border:#E5E0D5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif; color: var(--text);
+      line-height: 1.7; background: var(--cream); min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+
+    header.site-header { padding: 28px 0; border-bottom: 1px solid var(--border); }
+    .site-header .inner {
+      max-width: 960px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: 'Playfair Display', serif; font-weight: 800; font-size: 24px;
+      color: var(--navy); text-decoration: none; letter-spacing: -0.01em;
+    }
+    .brand .brand-mark {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--navy); color: var(--cream);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: 20px; font-style: italic;
+    }
+    .brand .accent { color: var(--orange); font-style: italic; }
+    nav.top-nav { display: flex; gap: 26px; }
+    nav.top-nav a { color: var(--navy); text-decoration: none; font-size: 15px; font-weight: 500; }
+    nav.top-nav a:hover { color: var(--orange); }
+
+    .hero { padding: 56px 0 24px; }
+    .eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: clamp(36px, 5.5vw, 54px); line-height: 1.1;
+      letter-spacing: -0.02em; color: var(--navy); margin-bottom: 18px;
+    }
+    .hero h1 em { font-style: italic; color: var(--orange); }
+    .hero .tagline {
+      font-size: clamp(17px, 2.2vw, 20px); color: var(--muted);
+      max-width: 600px; line-height: 1.55;
+    }
+
+    section.project {
+      padding: 44px 0; border-top: 1px solid var(--border);
+    }
+    .project-header { margin-bottom: 16px; }
+    .project-header h2 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: 30px; letter-spacing: -0.01em; color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .project-meta {
+      font-size: 13px; color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .project-meta strong { color: var(--orange); font-weight: 600; }
+
+    .lede {
+      font-size: 18px; color: var(--navy-soft);
+      margin: 16px 0 20px; line-height: 1.6;
+    }
+    p { font-size: 16px; margin-bottom: 12px; }
+    p strong { color: var(--navy); font-weight: 600; }
+    h3 {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: 20px; color: var(--navy); margin: 22px 0 10px;
+    }
+
+    table.stats {
+      width: 100%; border-collapse: collapse; margin: 14px 0;
+      font-size: 14px;
+    }
+    table.stats td {
+      padding: 8px 12px; border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    table.stats td:first-child {
+      color: var(--muted); width: 40%;
+      letter-spacing: 0.04em; font-size: 13px;
+    }
+    table.stats td:last-child { color: var(--text); font-weight: 500; }
+
+    ul.bullets { padding-left: 24px; margin: 14px 0; }
+    ul.bullets li { margin-bottom: 8px; font-size: 16px; }
+    ul.bullets li strong { color: var(--navy); font-weight: 600; }
+
+    .callout {
+      background: var(--card);
+      padding: 18px 22px;
+      border-radius: 10px;
+      border-left: 4px solid var(--orange);
+      margin: 18px 0;
+      font-size: 15px;
+      color: var(--navy);
+    }
+
+    a.inline { color: var(--orange-dark); text-decoration: underline; }
+    a.inline:hover { color: var(--orange); }
+
+    .product-card {
+      background: var(--card); padding: 22px 26px;
+      border-radius: 12px; margin: 14px 0;
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      border: 1px solid var(--border);
+    }
+    .product-card .meta-block { flex: 1; min-width: 240px; }
+    .product-card h4 {
+      margin: 0 0 4px; font-family: 'Playfair Display', serif;
+      font-size: 18px; color: var(--navy); font-weight: 700;
+    }
+    .product-card p { margin: 0; font-size: 15px; color: var(--text); }
+    .product-card .cta-mini {
+      display: inline-block; background: var(--orange);
+      color: var(--cream); padding: 8px 18px;
+      border-radius: 999px; font-size: 14px; font-weight: 600;
+      text-decoration: none;
+    }
+    .product-card .cta-mini:hover { background: var(--orange-dark); }
+
+    footer.site-footer {
+      padding: 56px 0 36px; background: var(--navy);
+      color: var(--cream-deep); margin-top: 64px;
+    }
+    .site-footer .inner { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+    .site-footer .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 36px; margin-bottom: 32px;
+    }
+    .site-footer h4 {
+      font-family: 'Playfair Display', serif; font-size: 16px;
+      color: var(--cream); margin-bottom: 14px; font-weight: 700;
+    }
+    .site-footer ul { list-style: none; padding-left: 0; }
+    .site-footer li { margin-bottom: 8px; }
+    .site-footer a { color: var(--cream-deep); text-decoration: none; font-size: 14px; }
+    .site-footer a:hover { color: var(--orange); }
+    .site-footer .footer-brand p {
+      font-size: 14px; color: var(--cream-deep); opacity: 0.8;
+      margin-top: 10px; max-width: 280px;
+    }
+    .site-footer .colophon {
+      border-top: 1px solid rgba(250,247,242,0.12);
+      padding-top: 20px; font-size: 12px; opacity: 0.7;
+    }
+    @media (max-width: 720px) {
+      .site-footer .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav.top-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a href="/" class="brand">
+        <span class="brand-mark">G</span>
+        <span>Grub<span class="accent">Trucks</span></span>
+      </a>
+      <nav class="top-nav">
+        <a href="for-trucks.html">For Trucks</a>
+        <a href="help.html">Help</a>
+        <a href="about.html">About</a>
+        <a href="research.html">Labs</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section class="hero">
+      <span class="eyebrow">Magpie Labs</span>
+      <h1>Research &amp; <em>active projects.</em></h1>
+      <p class="tagline">GrubTrucks is built by the same studio that competes in machine-learning competitions and ships independent Mac software. Here's what else is in motion.</p>
+    </section>
+
+    <section class="project">
+      <div class="project-header">
+        <h2>ROGII Wellbore Geology Prediction</h2>
+        <span class="project-meta">
+          <strong>Active</strong> · Kaggle competition · $50,000 prize pool
+        </span>
+      </div>
+
+      <p class="lede">
+        Competing in <a class="inline" href="https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction">ROGII's wellbore geology prediction competition</a> — a machine-learning challenge from a Houston-based oil &amp; gas software company. The task is to predict the geological position (True Vertical Thickness) along the lateral section of horizontal wellbores from sparse training data.
+      </p>
+
+      <table class="stats">
+        <tr><td>Sponsor</td><td>ROGII (Houston, TX)</td></tr>
+        <tr><td>Prize pool</td><td>$50,000 total · $25K for 1st</td></tr>
+        <tr><td>Competition window</td><td>May 5 – August 5, 2026</td></tr>
+        <tr><td>Training data</td><td>~773 horizontal wells, ~6 million labeled depth measurements</td></tr>
+        <tr><td>Hidden evaluation set</td><td>~200 wells</td></tr>
+        <tr><td>Magpie's Kaggle profile</td><td><a class="inline" href="https://www.kaggle.com/ismaelrodriguez49">kaggle.com/ismaelrodriguez49</a></td></tr>
+        <tr><td>Current standing</td><td>Active submission · iterating on a bias-anchored residual architecture</td></tr>
+      </table>
+
+      <h3>Why it matters (and why we're in it)</h3>
+      <p>
+        Subsurface prediction is the same class of problem that shows up in many of our own product areas: making confident judgments from sparse, irregular, high-stakes data. The skills that win a Kaggle competition like this — careful cross-validation, ensemble construction, calibration discipline — are the same skills that make our shipped products reliable.
+      </p>
+
+      <h3>Approach (high-level)</h3>
+      <ul class="bullets">
+        <li><strong>Geometric reformulation.</strong> The problem reduces to predicting a 2D spatial surface, then projecting back to the original space — a reframing that simplifies what initially looks like a sequence-modeling task.</li>
+        <li><strong>Ensemble of disjoint method families.</strong> Spatial statistics (universal kriging), neural surface models, and sequence-attention models combined with careful per-row clipping to prevent catastrophic outliers from dragging the average.</li>
+        <li><strong>Variance reduction.</strong> Seed bagging across stochastic components and adaptive weighting based on local prediction confidence.</li>
+        <li><strong>Bias-anchored residual learning.</strong> Recent iterations decompose the prediction into a deterministic kriging anchor plus a learned residual — letting the neural net focus on what kriging can't capture.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Detailed methodology to be published</strong> after the competition closes on August 5, 2026. In the spirit of fair competition, we don't share specifics that might benefit other teams while the leaderboard is still live.
+      </div>
+
+      <h3>What we're learning</h3>
+      <p>
+        The biggest insights — careful calibration of cross-validation vs. leaderboard metrics, variance reduction for ensembled neural models, and the discipline of resisting fragile-but-impressive single-method "wins" — apply directly to our shipped products. Reliability under distribution shift is a feature you don't notice until it breaks, and it doesn't break by accident.
+      </p>
+    </section>
+
+    <section class="project">
+      <div class="project-header">
+        <h2>GrubTrucks</h2>
+        <span class="project-meta">
+          <strong>Shipping</strong> · iOS launching soon · Android in development
+        </span>
+      </div>
+
+      <p class="lede">
+        The product you're currently on. A real-time food truck discovery app, built mobile-first by a one-person studio.
+      </p>
+
+      <div class="product-card">
+        <div class="meta-block">
+          <h4>Trucks first, mobile-first, real-time first</h4>
+          <p>The same posture as our other work: tight scope, honest documentation, conservative on user data, generous on operator terms.</p>
+        </div>
+        <a href="/" class="cta-mini">View GrubTrucks →</a>
+      </div>
+
+      <p>
+        Some of the most interesting engineering inside GrubTrucks isn't visible to the end user: how we cache third-party APIs without violating their terms, how we avoid storing location data on the backend, how we keep the cryptocurrency QR feature outside the regulatory perimeter for money transmitters. The conservative discipline that shows up in our Kaggle work shows up here too.
+      </p>
+    </section>
+
+    <section class="project">
+      <div class="project-header">
+        <h2>MacJanitor</h2>
+        <span class="project-meta">
+          <strong>Shipping</strong> · v1.0.2 · Mac utility · One-time $19.99
+        </span>
+      </div>
+
+      <p class="lede">
+        Our first shipping product. An AI-driven Mac disk cleaner that uses contextual judgment instead of generic rules — knowing that the same iOS simulator runtime is dead weight for a writer and load-bearing for a developer.
+      </p>
+
+      <div class="product-card">
+        <div class="meta-block">
+          <h4>Privacy-first, judgment-driven cleanup</h4>
+          <p>File contents never leave your Mac. Only paths and sizes are sent for analysis. Bring your own Anthropic API key.</p>
+        </div>
+        <a href="https://magpiestudios.app" class="cta-mini">View MacJanitor →</a>
+      </div>
+
+      <p>
+        The same posture that drives our Kaggle approach — careful judgment, honest calibration, resistance to over-confident single-method wins — drives MacJanitor's product behavior. Every proposed deletion is shown to you before it runs. Conservative by default. The conservative pass is the trust-building one.
+      </p>
+    </section>
+
+    <section class="project">
+      <div class="project-header">
+        <h2>What's next</h2>
+        <span class="project-meta">
+          <strong>Coming</strong> · Under development
+        </span>
+      </div>
+
+      <p class="lede">
+        Magpie is structured to ship a portfolio of focused utilities — each one applying careful AI and statistical judgment to a chore that currently requires deep manual expertise. Specifics on what's next will be announced when there's something to actually show.
+      </p>
+
+      <p>
+        If you're an indie operator, food truck owner, Mac power user, ML practitioner, or somebody who appreciates one-person studios that ship — keep an eye on this page and on <a class="inline" href="https://magpiestudios.app">magpiestudios.app</a>.
+      </p>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4>GrubTrucks</h4>
+          <p>Real-time food truck discovery, built mobile-first. iOS launching soon.</p>
+        </div>
+        <div>
+          <h4>App</h4>
+          <ul>
+            <li><a href="help.html">User Manual</a></li>
+            <li><a href="for-trucks.html">For Operators</a></li>
+            <li><a href="mailto:hello@grubtruck.app">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="research.html">Labs</a></li>
+            <li><a href="https://magpiestudios.app">Magpie Studios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="colophon">
+        © 2026 GrubTrucks. A product of Magpie Studios LLC · Arizona, USA · All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
