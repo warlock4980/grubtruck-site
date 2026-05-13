@@ -965,8 +965,15 @@
     function addMessage(role, text, isTyping) {
       const div = document.createElement("div");
       div.className = "gtc-msg " + role + (isTyping ? " typing" : "");
-      const esc = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      div.innerHTML = esc.replace(/(https?:\/\/[^\s<]+)|([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/g,
+      let h = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      // Lightweight Markdown → HTML so bot replies render cleanly.
+      // Bold, italic, and inline code only — no nested headers / lists / etc.
+      h = h.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
+      h = h.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, "$1<em>$2</em>");
+      h = h.replace(/`([^`\n]+)`/g, "<code>$1</code>");
+      // URL + email auto-link. Exclude `*` from URL chars as a safety belt
+      // in case any markdown wrapper survives the conversion above.
+      div.innerHTML = h.replace(/(https?:\/\/[^\s<*)]+)|([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/g,
         function(m, url, email) {
           if (url)   return '<a href="' + url + '" target="_blank" rel="noopener">' + url + '</a>';
           if (email) return '<a href="mailto:' + email + '">' + email + '</a>';
