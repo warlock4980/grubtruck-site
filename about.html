@@ -572,6 +572,47 @@
     .gtc-send:disabled { background: #D6CFC2; cursor: not-allowed; }
     .gtc-footer-note { padding: 8px 16px 12px; font-size: 11px; color: #6B6258; background: #FAF7F2; text-align: center; border-top: 1px solid #F2EDE2; }
 
+    /* ── Front-view truck mascot (Tow-Mater-style, faces customer when chat is open) ── */
+    .gtc-header { gap: 10px; }
+    .gtc-header-left {
+      display: flex; align-items: center; gap: 10px;
+      flex: 1; min-width: 0;
+    }
+    .gtc-header-text { min-width: 0; }
+    .gtc-mascot {
+      width: 50px; height: 50px; flex-shrink: 0;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+    }
+    .gtc-mascot svg { width: 100%; height: 100%; display: block; }
+
+    /* Eyes blink occasionally (pupils only — the whites stay) */
+    @keyframes gtc-front-blink {
+      0%, 93%, 100% { transform: scaleY(1); }
+      95%, 97%      { transform: scaleY(0.1); }
+    }
+    .gtc-front-eyes { transform-origin: center; animation: gtc-front-blink 4.3s ease-in-out infinite; }
+
+    /* Mouth: dark interior animates between closed (thin) and open (full) */
+    .gtc-mouth-open { transform-origin: 32px 35px; transform: scaleY(0.2); transition: transform 0.18s ease; }
+    .gtc-mouth-slats { opacity: 0; transition: opacity 0.18s ease; }
+
+    @keyframes gtc-mouth-talk {
+      0%, 100% { transform: scaleY(0.28); }
+      25%      { transform: scaleY(0.95); }
+      50%      { transform: scaleY(0.45); }
+      75%      { transform: scaleY(0.8); }
+    }
+    .gtc-panel.speaking .gtc-mouth-open {
+      transition: none;
+      animation: gtc-mouth-talk 0.42s ease-in-out infinite;
+    }
+    .gtc-panel.speaking .gtc-mouth-slats { opacity: 0.6; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gtc-front-eyes { animation: none; }
+      .gtc-panel.speaking .gtc-mouth-open { animation: none; transform: scaleY(0.7); }
+    }
+
     /* ── Drag-to-move + expand toggle ─────────────────────────────── */
     .gtc-expand {
       background: rgba(255,255,255,0.18); border: none; color: white;
@@ -693,6 +734,78 @@
           <circle cx="54" cy="52" r="0.7" fill="#0B1F33"/>
         </g>
       </symbol>
+      <symbol id="gtc-truck-front" viewBox="0 0 64 64">
+        <!-- Roof awning -->
+        <rect x="6" y="5" width="52" height="3.4" rx="1" fill="#FAF7F2"/>
+        <circle cx="14" cy="6.7" r="0.7" fill="#C2410C" opacity="0.55"/>
+        <circle cx="22" cy="6.7" r="0.7" fill="#C2410C" opacity="0.55"/>
+        <circle cx="32" cy="6.7" r="0.7" fill="#C2410C" opacity="0.55"/>
+        <circle cx="42" cy="6.7" r="0.7" fill="#C2410C" opacity="0.55"/>
+        <circle cx="50" cy="6.7" r="0.7" fill="#C2410C" opacity="0.55"/>
+
+        <!-- Cabin face — slightly trapezoidal -->
+        <path d="M10 8.4 L54 8.4 L56 44 L8 44 Z" fill="url(#gtc-body-grad)"/>
+
+        <!-- BIG round googly eyes (Tow Mater) — whites first -->
+        <circle cx="22" cy="18" r="6.4" fill="#FAF7F2" stroke="#0B1F33" stroke-width="0.6"/>
+        <circle cx="42" cy="18" r="6.4" fill="#FAF7F2" stroke="#0B1F33" stroke-width="0.6"/>
+
+        <!-- Pupils — slightly off-center for that lovable goofy expression -->
+        <g class="gtc-front-eyes">
+          <circle cx="23.4" cy="18.6" r="2.7" fill="#0B1F33"/>
+          <circle cx="24.2" cy="17.9" r="0.9" fill="#FFFFFF"/>
+          <circle cx="40.6" cy="18.6" r="2.7" fill="#0B1F33"/>
+          <circle cx="41.4" cy="17.9" r="0.9" fill="#FFFFFF"/>
+        </g>
+
+        <!-- Hood ornament: circular badge with crossed fork + spoon (the "nose") -->
+        <g class="gtc-front-ornament">
+          <circle cx="32" cy="26.5" r="3.6" fill="#FAF7F2" stroke="#0B1F33" stroke-width="0.4"/>
+          <line x1="30" y1="24.5" x2="34" y2="28.5" stroke="#0B1F33" stroke-width="0.85" stroke-linecap="round"/>
+          <line x1="29.7" y1="24.2" x2="29.4" y2="23.6" stroke="#0B1F33" stroke-width="0.5" stroke-linecap="round"/>
+          <line x1="30.2" y1="23.9" x2="30.4" y2="23.2" stroke="#0B1F33" stroke-width="0.5" stroke-linecap="round"/>
+          <line x1="30.8" y1="23.5" x2="31.2" y2="23.0" stroke="#0B1F33" stroke-width="0.5" stroke-linecap="round"/>
+          <line x1="34" y1="24.5" x2="30" y2="28.5" stroke="#0B1F33" stroke-width="0.85" stroke-linecap="round"/>
+          <ellipse cx="34.3" cy="24.2" rx="0.9" ry="1.1" fill="#0B1F33"/>
+        </g>
+
+        <!-- Grille (mouth) — with iconic BUCK TEETH -->
+        <g class="gtc-front-mouth">
+          <rect x="17" y="31" width="30" height="10" rx="2.6" fill="#0B1F33"/>
+          <!-- Dark interior — animates between closed (thin) and open (rectangle) -->
+          <rect class="gtc-mouth-open" x="19" y="33" width="26" height="6" rx="1.6" fill="#3F1D08"/>
+          <!-- BUCK TEETH — two big front teeth (Tow Mater) -->
+          <g class="gtc-mouth-teeth">
+            <rect x="27.8" y="31" width="3.2" height="6.5" rx="0.5" fill="#FAF7F2" stroke="#0B1F33" stroke-width="0.35"/>
+            <rect x="33" y="31" width="3.2" height="6.5" rx="0.5" fill="#FAF7F2" stroke="#0B1F33" stroke-width="0.35"/>
+          </g>
+          <!-- Side slats (visible during speaking for grille texture) -->
+          <g class="gtc-mouth-slats" stroke="#FCD34D" stroke-width="0.6" stroke-linecap="round">
+            <line x1="22" y1="34" x2="22" y2="38"/>
+            <line x1="25" y1="34" x2="25" y2="38"/>
+            <line x1="39" y1="34" x2="39" y2="38"/>
+            <line x1="42" y1="34" x2="42" y2="38"/>
+          </g>
+        </g>
+
+        <!-- Tiny headlights -->
+        <circle cx="13" cy="28" r="1.4" fill="#FCD34D"/>
+        <circle cx="51" cy="28" r="1.4" fill="#FCD34D"/>
+
+        <!-- Bumper + GT plate -->
+        <rect x="4" y="42.5" width="56" height="3" rx="0.6" fill="#0B1F33"/>
+        <rect x="27" y="43" width="10" height="2" rx="0.4" fill="#FCD34D"/>
+        <text x="32" y="44.6" font-size="1.7" font-weight="800" text-anchor="middle" fill="#0B1F33"
+              font-family="'Playfair Display', Georgia, serif">GT</text>
+
+        <!-- Wheels (perspective ovals — taller than wide) -->
+        <ellipse cx="13" cy="50" rx="5" ry="7" fill="#0B1F33"/>
+        <ellipse cx="13" cy="50" rx="2.4" ry="3.4" fill="#E5E0D5"/>
+        <circle cx="13" cy="50" r="0.7" fill="#0B1F33"/>
+        <ellipse cx="51" cy="50" rx="5" ry="7" fill="#0B1F33"/>
+        <ellipse cx="51" cy="50" rx="2.4" ry="3.4" fill="#E5E0D5"/>
+        <circle cx="51" cy="50" r="0.7" fill="#0B1F33"/>
+      </symbol>
     </defs>
   </svg>
 
@@ -720,9 +833,14 @@
 
   <div class="gtc-panel" id="gtc-panel" role="dialog" aria-labelledby="gtc-title">
     <div class="gtc-header">
-      <div>
-        <div class="title" id="gtc-title">Ask GrubTrucks</div>
-        <div class="subtitle">The app, how to list a truck, anything food-truck</div>
+      <div class="gtc-header-left">
+        <div class="gtc-mascot" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><use href="#gtc-truck-front"/></svg>
+        </div>
+        <div class="gtc-header-text">
+          <div class="title" id="gtc-title">Ask GrubTrucks</div>
+          <div class="subtitle">The app, how to list a truck, anything food-truck</div>
+        </div>
       </div>
       <div class="gtc-header-actions">
         <button class="gtc-expand" id="gtc-expand" aria-label="Expand chat" title="Expand">
@@ -856,6 +974,7 @@
       persistHistory();
       input.value = "";
       const typingNode = addMessage("bot", "…", true);
+      panel.classList.add("speaking");
       try {
         const res = await fetch(GRUBTRUCKS_CHAT_API_URL, {
           method: "POST",
@@ -875,7 +994,7 @@
       } catch (e) {
         typingNode.remove();
         addMessage("bot", "Sorry — I couldn't reach the server. Email hello@grubtruck.app and we'll get back to you within 48 hours.", false);
-      } finally { sendBtn.disabled = false; input.focus(); }
+      } finally { panel.classList.remove("speaking"); sendBtn.disabled = false; input.focus(); }
     }
     sendBtn.addEventListener("click", send);
     input.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
