@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>For Truck Operators — GrubTrucks</title>
   <meta name="description" content="List your food truck on GrubTrucks. Free, mobile-first, no commission. Built for operators." />
   <meta property="og:title" content="For Truck Operators — GrubTrucks" />
@@ -316,5 +316,470 @@
       </div>
     </div>
   </footer>
+  <script>window.GRUBTRUCKS_CHAT_API_URL = "https://magpie-chatbot.onrender.com/chat-grub";</script>
+  <!-- gtc-widget:start (embedded from chatbot-widget.html — keep in sync) -->
+<!--
+  GrubTrucks chat widget — drop-in include.
+
+  How to use: paste the entire block below into any HTML page, just before
+  </body>. Before that block, set:
+    <script>window.GRUBTRUCKS_CHAT_API_URL = "https://your-backend.example.com/chat-grub";</script>
+  Otherwise the widget defaults to "/chat-grub" (relative).
+
+  Pairs with the /chat-grub endpoint on magpie-chatbot-backend (the same Flask
+  server that also serves Magpie's /chat).
+
+  Visual character: a side-view food truck whose service window is its face —
+  two eyes peering out, a small painted smile. Wheels stay still when parked
+  (launcher), spin when driving (fly-by / celebrate).
+-->
+
+<!-- ════════════════════ GrubTrucks chat widget ════════════════════ -->
+  <style>
+    .gtc-launcher {
+      position: fixed; right: 20px; bottom: 20px;
+      width: 64px; height: 64px; border-radius: 50%;
+      background: #FAF7F2; border: 2px solid #C2410C;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(194, 65, 12, 0.36);
+      z-index: 9998;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      font-family: inherit;
+      padding: 0;
+      overflow: hidden;
+      animation: gtc-idle-bob 2.8s ease-in-out infinite;
+    }
+    .gtc-launcher svg { width: 52px; height: 52px; display: block; }
+    .gtc-launcher:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 32px rgba(194, 65, 12, 0.5);
+      border-color: #9A3412;
+    }
+    .gtc-launcher.open { display: none; }
+    @keyframes gtc-idle-bob {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-4px); }
+    }
+
+    /* ── Drive-by truck (the fly-by equivalent) ───────────────────── */
+    .gtc-driveby {
+      position: fixed; bottom: 100px; left: -120px;
+      width: 100px; height: 70px;
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0;
+      filter: drop-shadow(0 6px 14px rgba(194, 65, 12, 0.35));
+    }
+    .gtc-driveby svg { width: 100%; height: 100%; display: block; }
+
+    /* Drive path: trundles across the bottom with small bumps for road texture */
+    @keyframes gtc-drive-path {
+      0%   { transform: translate(0, 0)        rotate(0deg);   opacity: 0; }
+      4%   { transform: translate(5vw, 0)      rotate(0deg);   opacity: 1; }
+      14%  { transform: translate(16vw, -2px)  rotate(-1deg); }
+      18%  { transform: translate(20vw, 0)     rotate(0deg); }
+      30%  { transform: translate(34vw, -3px)  rotate(-1.5deg); }
+      34%  { transform: translate(38vw, 0)     rotate(0deg); }
+      48%  { transform: translate(52vw, -2px)  rotate(-1deg); }
+      52%  { transform: translate(56vw, 0)     rotate(0deg); }
+      66%  { transform: translate(70vw, -3px)  rotate(-1.5deg); }
+      70%  { transform: translate(74vw, 0)     rotate(0deg); }
+      84%  { transform: translate(88vw, -2px)  rotate(-1deg); }
+      96%  { transform: translate(102vw, 0)    rotate(0deg);   opacity: 1; }
+      100% { transform: translate(112vw, 0)    rotate(0deg);   opacity: 0; }
+    }
+    .gtc-driveby.driving { animation: gtc-drive-path 13s cubic-bezier(0.4, 0, 0.6, 1) forwards; }
+
+    /* Wheels: spin only while driving */
+    @keyframes gtc-wheel-spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .gtc-driveby .gtc-wheel-rear  { transform-origin: 14px 52px; }
+    .gtc-driveby .gtc-wheel-front { transform-origin: 54px 52px; }
+    .gtc-driveby.driving .gtc-wheel-rear,
+    .gtc-driveby.driving .gtc-wheel-front {
+      animation: gtc-wheel-spin 220ms linear infinite;
+    }
+
+    /* Celebrate variant — faster, punchier */
+    @keyframes gtc-celebrate-drive {
+      0%   { transform: translate(0, 0)        rotate(0deg);  opacity: 0; }
+      6%   { opacity: 1; }
+      20%  { transform: translate(20vw, -6px)  rotate(-3deg); }
+      28%  { transform: translate(28vw, 0)     rotate(0deg); }
+      48%  { transform: translate(52vw, -8px)  rotate(-4deg); }
+      55%  { transform: translate(58vw, 0)     rotate(0deg); }
+      78%  { transform: translate(82vw, -6px)  rotate(-3deg); }
+      85%  { transform: translate(88vw, 0)     rotate(0deg); }
+      96%  { transform: translate(106vw, 0)    rotate(0deg);  opacity: 1; }
+      100% { transform: translate(116vw, 0)    rotate(0deg);  opacity: 0; }
+    }
+    .gtc-driveby.celebrate { animation: gtc-celebrate-drive 6.5s cubic-bezier(0.3, 0, 0.4, 1) forwards; }
+    .gtc-driveby.celebrate .gtc-wheel-rear,
+    .gtc-driveby.celebrate .gtc-wheel-front {
+      animation: gtc-wheel-spin 140ms linear infinite;
+    }
+
+    /* Exhaust puff — small clouds drifting up & back from the cabin roof */
+    @keyframes gtc-exhaust {
+      0%   { opacity: 0; transform: translate(0, 0) scale(0.6); }
+      30%  { opacity: 0.7; }
+      100% { opacity: 0; transform: translate(-14px, -10px) scale(1.4); }
+    }
+    .gtc-driveby.driving .gtc-puff,
+    .gtc-driveby.celebrate .gtc-puff {
+      animation: gtc-exhaust 1.2s ease-out infinite;
+    }
+    .gtc-driveby .gtc-puff-2 { animation-delay: 0.4s !important; }
+    .gtc-driveby .gtc-puff-3 { animation-delay: 0.8s !important; }
+
+    /* Eyes blink occasionally on the driving truck (and the perched one) */
+    @keyframes gtc-blink {
+      0%, 94%, 100% { transform: scaleY(1); }
+      96%, 98%      { transform: scaleY(0.1); }
+    }
+    .gtc-eyes { transform-origin: center; animation: gtc-blink 5s ease-in-out infinite; }
+
+    /* ── Perched truck — sits to the left of the launcher when chat closed ── */
+    .gtc-perch {
+      position: fixed; right: 56px; bottom: 78px;
+      width: 56px; height: 40px;
+      pointer-events: none;
+      z-index: 9998;
+      filter: drop-shadow(0 3px 6px rgba(194, 65, 12, 0.3));
+      transition: opacity 0.3s;
+    }
+    .gtc-perch svg { width: 100%; height: 100%; display: block; }
+    .gtc-perch.hidden { opacity: 0; }
+
+    /* Perched truck: subtle suspension bob, no wheel spin */
+    @keyframes gtc-perch-bob {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-2px); }
+    }
+    .gtc-perch-svg { animation: gtc-perch-bob 3.4s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gtc-launcher { animation: none; }
+      .gtc-driveby, .gtc-perch { display: none; }
+    }
+
+    .gtc-panel {
+      position: fixed; right: 20px; bottom: 20px;
+      width: 380px; max-width: calc(100vw - 32px);
+      height: 560px; max-height: calc(100vh - 80px);
+      background: #FAF7F2; border-radius: 16px;
+      box-shadow: 0 12px 48px rgba(194, 65, 12, 0.28);
+      border: 1px solid #E5E0D5;
+      display: none; flex-direction: column; overflow: hidden;
+      z-index: 9999;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+    }
+    .gtc-panel.open { display: flex; }
+    .gtc-header {
+      background: linear-gradient(135deg, #C2410C, #9A3412);
+      color: #FAF7F2; padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .gtc-header .title { font-size: 16px; font-weight: 600; font-family: 'Playfair Display', Georgia, serif; }
+    .gtc-header .subtitle { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+    .gtc-header-actions { display: flex; gap: 6px; align-items: center; }
+    .gtc-clear, .gtc-close {
+      background: rgba(255,255,255,0.18); border: none; color: #FAF7F2;
+      height: 28px; border-radius: 14px;
+      cursor: pointer; font-size: 13px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit;
+    }
+    .gtc-clear { padding: 0 12px; font-weight: 500; }
+    .gtc-close { width: 28px; font-size: 18px; }
+    .gtc-clear:hover, .gtc-close:hover { background: rgba(255,255,255,0.32); }
+    .gtc-body {
+      flex: 1; overflow-y: auto;
+      padding: 16px 20px; background: #F5EFE5;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .gtc-msg {
+      max-width: 80%; padding: 10px 14px; border-radius: 14px;
+      font-size: 14px; line-height: 1.5; word-wrap: break-word;
+    }
+    .gtc-msg.user { align-self: flex-end; background: #C2410C; color: #FAF7F2; border-bottom-right-radius: 4px; }
+    .gtc-msg.bot { align-self: flex-start; background: #FAF7F2; color: #1A1A1A; border: 1px solid #E5E0D5; border-bottom-left-radius: 4px; }
+    .gtc-msg.bot a { color: #C2410C; }
+    .gtc-msg.typing { font-style: italic; color: #6B6258; }
+    .gtc-input-row { display: flex; gap: 8px; padding: 12px 16px; background: #FAF7F2; border-top: 1px solid #E5E0D5; }
+    .gtc-input { flex: 1; border: 1px solid #E5E0D5; border-radius: 12px; padding: 10px 14px; font-size: 14px; outline: none; font-family: inherit; background: #FAF7F2; color: #1A1A1A; }
+    .gtc-input:focus { border-color: #C2410C; }
+    .gtc-send { background: #C2410C; color: #FAF7F2; border: none; border-radius: 12px; padding: 0 18px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .gtc-send:hover { background: #9A3412; }
+    .gtc-send:disabled { background: #D6CFC2; cursor: not-allowed; }
+    .gtc-footer-note { padding: 8px 16px 12px; font-size: 11px; color: #6B6258; background: #FAF7F2; text-align: center; border-top: 1px solid #F2EDE2; }
+
+    @media (max-width: 480px) {
+      .gtc-panel {
+        right: 8px;
+        bottom: calc(8px + env(safe-area-inset-bottom));
+        width: calc(100vw - 16px);
+        max-height: calc(100dvh - 80px - env(safe-area-inset-bottom));
+      }
+    }
+  </style>
+
+  <!-- ── Reusable truck SVG (defined once, referenced via <use> below) ── -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <defs>
+      <linearGradient id="gtc-body-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"  stop-color="#F97316"/>
+        <stop offset="55%" stop-color="#C2410C"/>
+        <stop offset="100%" stop-color="#7C2D12"/>
+      </linearGradient>
+
+      <symbol id="gtc-truck" viewBox="0 0 64 64">
+        <!-- Awning above food box -->
+        <rect x="2" y="13" width="48" height="3" rx="1" fill="#FAF7F2"/>
+        <!-- Awning scallops (decorative dots) -->
+        <circle cx="8"  cy="16" r="0.7" fill="#C2410C" opacity="0.5"/>
+        <circle cx="20" cy="16" r="0.7" fill="#C2410C" opacity="0.5"/>
+        <circle cx="32" cy="16" r="0.7" fill="#C2410C" opacity="0.5"/>
+        <circle cx="44" cy="16" r="0.7" fill="#C2410C" opacity="0.5"/>
+
+        <!-- Food box body -->
+        <rect x="4" y="16" width="46" height="34" rx="3" fill="url(#gtc-body-grad)"/>
+
+        <!-- Service window (the face) -->
+        <rect x="8" y="20" width="32" height="14" rx="2" fill="#DBEAFE"/>
+        <!-- Window cross-bar -->
+        <line x1="24" y1="20" x2="24" y2="34" stroke="#FAF7F2" stroke-width="0.8" opacity="0.9"/>
+        <line x1="8" y1="27" x2="40" y2="27" stroke="#FAF7F2" stroke-width="0.4" opacity="0.6"/>
+
+        <!-- Eyes — group blinks via CSS animation on .gtc-eyes -->
+        <g class="gtc-eyes">
+          <circle cx="16" cy="25" r="2.2" fill="#0B1F33"/>
+          <circle cx="16.6" cy="24.4" r="0.7" fill="#FFFFFF"/>
+          <circle cx="32" cy="25" r="2.2" fill="#0B1F33"/>
+          <circle cx="32.6" cy="24.4" r="0.7" fill="#FFFFFF"/>
+        </g>
+        <!-- Smile inside the window -->
+        <path d="M19 31 Q24 33.5 29 31" stroke="#0B1F33" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+        <!-- "GRUB" wordmark stripe below the window -->
+        <rect x="6" y="38" width="42" height="4" fill="#0B1F33" opacity="0.85"/>
+        <text x="27" y="41.4" font-family="'Playfair Display', Georgia, serif"
+              font-size="3.6" font-weight="800" fill="#FAF7F2"
+              text-anchor="middle" letter-spacing="0.6">GRUB</text>
+
+        <!-- Cabin -->
+        <rect x="50" y="24" width="10" height="26" rx="1" fill="#0B1F33"/>
+        <!-- Cabin windshield -->
+        <rect x="52" y="26" width="6.5" height="6" rx="0.6" fill="#7DD3FC"/>
+        <!-- Cabin door handle -->
+        <rect x="51.5" y="36" width="6.5" height="0.6" fill="#FAF7F2" opacity="0.4"/>
+        <!-- Headlight -->
+        <circle cx="58.5" cy="46" r="1.4" fill="#FCD34D"/>
+        <!-- Cabin roof exhaust (small pipe poking up) -->
+        <rect x="50" y="20" width="2" height="4" fill="#0B1F33"/>
+
+        <!-- Wheels — spin only inside .gtc-driveby.driving via CSS -->
+        <g class="gtc-wheel gtc-wheel-rear">
+          <circle cx="14" cy="52" r="5" fill="#0B1F33"/>
+          <circle cx="14" cy="52" r="2.6" fill="#E5E0D5"/>
+          <g stroke="#0B1F33" stroke-width="0.7" stroke-linecap="round">
+            <line x1="14" y1="50" x2="14" y2="54"/>
+            <line x1="12" y1="52" x2="16" y2="52"/>
+            <line x1="12.6" y1="50.6" x2="15.4" y2="53.4"/>
+            <line x1="15.4" y1="50.6" x2="12.6" y2="53.4"/>
+          </g>
+          <circle cx="14" cy="52" r="0.7" fill="#0B1F33"/>
+        </g>
+        <g class="gtc-wheel gtc-wheel-front">
+          <circle cx="54" cy="52" r="5" fill="#0B1F33"/>
+          <circle cx="54" cy="52" r="2.6" fill="#E5E0D5"/>
+          <g stroke="#0B1F33" stroke-width="0.7" stroke-linecap="round">
+            <line x1="54" y1="50" x2="54" y2="54"/>
+            <line x1="52" y1="52" x2="56" y2="52"/>
+            <line x1="52.6" y1="50.6" x2="55.4" y2="53.4"/>
+            <line x1="55.4" y1="50.6" x2="52.6" y2="53.4"/>
+          </g>
+          <circle cx="54" cy="52" r="0.7" fill="#0B1F33"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <button class="gtc-launcher" id="gtc-launcher" aria-label="Open chat with GrubTrucks">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#gtc-truck"/></svg>
+  </button>
+
+  <!-- Perched truck: small idle truck sitting beside the launcher when chat is closed. -->
+  <div class="gtc-perch" id="gtc-perch" aria-hidden="true">
+    <svg class="gtc-perch-svg" viewBox="0 0 64 64"><use href="#gtc-truck"/></svg>
+  </div>
+
+  <!-- Drive-by truck: trundles across the bottom every 75s as a wink of personality. -->
+  <div class="gtc-driveby" id="gtc-driveby" aria-hidden="true">
+    <svg viewBox="0 0 84 64">
+      <!-- Exhaust puffs (drawn before the truck so it covers them at origin) -->
+      <g fill="#9CA3AF" opacity="0.6">
+        <circle class="gtc-puff gtc-puff-1" cx="49" cy="20" r="2.4"/>
+        <circle class="gtc-puff gtc-puff-2" cx="49" cy="20" r="3"/>
+        <circle class="gtc-puff gtc-puff-3" cx="49" cy="20" r="2"/>
+      </g>
+      <use href="#gtc-truck" x="0" y="0"/>
+    </svg>
+  </div>
+
+  <div class="gtc-panel" id="gtc-panel" role="dialog" aria-labelledby="gtc-title">
+    <div class="gtc-header">
+      <div>
+        <div class="title" id="gtc-title">Ask GrubTrucks</div>
+        <div class="subtitle">The app, how to list a truck, anything food-truck</div>
+      </div>
+      <div class="gtc-header-actions">
+        <button class="gtc-clear" id="gtc-clear" aria-label="Clear chat history">Clear</button>
+        <button class="gtc-close" id="gtc-close" aria-label="Close chat">×</button>
+      </div>
+    </div>
+    <div class="gtc-body" id="gtc-body">
+      <div class="gtc-msg bot">
+        Hi! I'm the GrubTrucks helper. Ask me how the app works, how operators can list their truck, what cities we cover, or anything else. If I don't know, I'll point you to <a href="mailto:hello@grubtruck.app">hello@grubtruck.app</a>.
+      </div>
+    </div>
+    <div class="gtc-input-row">
+      <input type="text" class="gtc-input" id="gtc-input" placeholder="Ask a question..." autocomplete="off" />
+      <button class="gtc-send" id="gtc-send">Send</button>
+    </div>
+    <div class="gtc-footer-note">Powered by Claude · Replies are AI-generated</div>
+  </div>
+
+  <script>
+  (function() {
+    const GRUBTRUCKS_CHAT_API_URL = window.GRUBTRUCKS_CHAT_API_URL || "/chat-grub";
+    const STORAGE_KEY = "grubtrucks-chat-history";
+    const DISMISS_KEY = "grubtrucks-chat-dismissed";
+    const AUTO_OPEN_MS = 7000;
+    const launcher = document.getElementById("gtc-launcher");
+    const panel = document.getElementById("gtc-panel");
+    const closeBtn = document.getElementById("gtc-close");
+    const clearBtn = document.getElementById("gtc-clear");
+    const body = document.getElementById("gtc-body");
+    const input = document.getElementById("gtc-input");
+    const sendBtn = document.getElementById("gtc-send");
+    const perch = document.getElementById("gtc-perch");
+    const driveby = document.getElementById("gtc-driveby");
+    let history = [];
+    try { history = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "[]"); } catch (e) {}
+    function persistHistory() { try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(-20))); } catch (e) {} }
+    function markDismissed() { try { sessionStorage.setItem(DISMISS_KEY, "1"); } catch (e) {} }
+    function isDismissed() {
+      try { return sessionStorage.getItem(DISMISS_KEY) === "1"; } catch (e) { return false; }
+    }
+    function addMessage(role, text, isTyping) {
+      const div = document.createElement("div");
+      div.className = "gtc-msg " + role + (isTyping ? " typing" : "");
+      const esc = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      div.innerHTML = esc.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+      return div;
+    }
+    function renderHistory() {
+      body.innerHTML = "";
+      if (history.length === 0) {
+        addMessage("bot", "Hi! I'm the GrubTrucks helper. Ask me how the app works, how operators can list their truck, what cities we cover, or anything else.");
+        return;
+      }
+      history.forEach(t => addMessage(t.role, t.content, false));
+    }
+    function hidePerch() { if (perch) perch.classList.add("hidden"); }
+    function showPerch() { if (perch) perch.classList.remove("hidden"); }
+    function openPanel() {
+      launcher.classList.add("open");
+      panel.classList.add("open");
+      hidePerch();
+      renderHistory();
+      celebrateDrive();
+      setTimeout(() => input.focus(), 100);
+    }
+    function closePanel() {
+      launcher.classList.remove("open");
+      panel.classList.remove("open");
+      markDismissed();
+      showPerch();
+    }
+    function celebrateDrive() {
+      if (!driveby) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      driveby.classList.remove("driving", "celebrate");
+      void driveby.offsetWidth;
+      driveby.classList.add("celebrate");
+    }
+    function clearHistory() {
+      history = [];
+      try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      renderHistory();
+      input.focus();
+    }
+    launcher.addEventListener("click", openPanel);
+    closeBtn.addEventListener("click", closePanel);
+    clearBtn.addEventListener("click", clearHistory);
+    if (!isDismissed() && history.length === 0) {
+      setTimeout(() => {
+        if (!isDismissed() && !panel.classList.contains("open")) {
+          openPanel();
+        }
+      }, AUTO_OPEN_MS);
+    }
+
+    // Drive-by: a little truck rolls across the screen every 75s
+    function truckDriveBy() {
+      if (!driveby) return;
+      if (panel.classList.contains("open")) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      driveby.classList.remove("driving", "celebrate");
+      void driveby.offsetWidth;
+      driveby.classList.add("driving");
+    }
+    setTimeout(truckDriveBy, 15000);
+    setInterval(truckDriveBy, 75000);
+
+    async function send() {
+      const msg = input.value.trim();
+      if (!msg) return;
+      sendBtn.disabled = true;
+      addMessage("user", msg, false);
+      history.push({ role: "user", content: msg });
+      persistHistory();
+      input.value = "";
+      const typingNode = addMessage("bot", "…", true);
+      try {
+        const res = await fetch(GRUBTRUCKS_CHAT_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: msg, history: history.slice(0, -1) }),
+        });
+        const data = await res.json();
+        typingNode.remove();
+        if (data.error) {
+          addMessage("bot", "Sorry — I hit an error. Try emailing hello@grubtruck.app instead.", false);
+        } else {
+          const reply = data.reply || "I'm not sure how to answer that — please email hello@grubtruck.app.";
+          addMessage("bot", reply, false);
+          history.push({ role: "assistant", content: reply });
+          persistHistory();
+        }
+      } catch (e) {
+        typingNode.remove();
+        addMessage("bot", "Sorry — I couldn't reach the server. Email hello@grubtruck.app and we'll get back to you within 48 hours.", false);
+      } finally { sendBtn.disabled = false; input.focus(); }
+    }
+    sendBtn.addEventListener("click", send);
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
+  })();
+  </script>
+  <!-- ═════════════════════ end GrubTrucks chat widget ═════════════════════ -->
+
+<!-- gtc-widget:end -->
 </body>
 </html>
