@@ -541,12 +541,45 @@
     .gtc-send:disabled { background: #D6CFC2; cursor: not-allowed; }
     .gtc-footer-note { padding: 8px 16px 12px; font-size: 11px; color: #6B6258; background: #FAF7F2; text-align: center; border-top: 1px solid #F2EDE2; }
 
+    /* ── Drag-to-move + expand toggle ─────────────────────────────── */
+    .gtc-expand {
+      background: rgba(255,255,255,0.18); border: none; color: white;
+      height: 28px; width: 28px; border-radius: 14px;
+      cursor: pointer; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit;
+    }
+    .gtc-expand:hover { background: rgba(255,255,255,0.32); }
+    .gtc-expand svg { width: 13px; height: 13px; display: block; }
+    .gtc-panel:not(.expanded) .gtc-icon-collapse { display: none; }
+    .gtc-panel.expanded .gtc-icon-expand { display: none; }
+    .gtc-header { cursor: grab; user-select: none; touch-action: none; }
+    .gtc-header:active { cursor: grabbing; }
+    .gtc-header-actions button { touch-action: auto; cursor: pointer; }
+    .gtc-panel.dragging {
+      transition: none !important;
+      box-shadow: 0 18px 64px rgba(0, 0, 0, 0.35);
+    }
+    .gtc-panel.expanded {
+      right: 16px !important; bottom: 16px !important;
+      left: 16px; top: 16px;
+      width: auto !important; max-width: none !important;
+      height: auto !important; max-height: none !important;
+    }
+    .gtc-panel.expanded .gtc-header { cursor: default; }
+
     @media (max-width: 480px) {
       .gtc-panel {
         right: 8px;
         bottom: calc(8px + env(safe-area-inset-bottom));
         width: calc(100vw - 16px);
         max-height: calc(100dvh - 80px - env(safe-area-inset-bottom));
+      }
+      .gtc-panel.expanded {
+        right: 8px !important;
+        bottom: calc(8px + env(safe-area-inset-bottom)) !important;
+        left: 8px;
+        top: max(8px, env(safe-area-inset-top));
       }
     }
   </style>
@@ -661,6 +694,18 @@
         <div class="subtitle">The app, how to list a truck, anything food-truck</div>
       </div>
       <div class="gtc-header-actions">
+        <button class="gtc-expand" id="gtc-expand" aria-label="Expand chat" title="Expand">
+          <svg class="gtc-icon-expand" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M3 6 L3 3 L6 3 M10 3 L13 3 L13 6 M3 10 L3 13 L6 13 M13 10 L13 13 L10 13"
+                  stroke="currentColor" stroke-width="1.6" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg class="gtc-icon-collapse" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6 3 L6 6 L3 6 M10 6 L13 6 L13 3 M6 13 L6 10 L3 10 M13 10 L10 10 L10 13"
+                  stroke="currentColor" stroke-width="1.6" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
         <button class="gtc-clear" id="gtc-clear" aria-label="Clear chat history">Clear</button>
         <button class="gtc-close" id="gtc-close" aria-label="Close chat">×</button>
       </div>
@@ -729,6 +774,9 @@
     function closePanel() {
       launcher.classList.remove("open");
       panel.classList.remove("open");
+      panel.classList.remove("expanded");
+      panel.style.left = ""; panel.style.top = "";
+      panel.style.right = ""; panel.style.bottom = "";
       markDismissed();
       showPerch();
     }
@@ -800,6 +848,63 @@
     }
     sendBtn.addEventListener("click", send);
     input.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
+
+    // ── Drag-to-move + expand toggle ─────────────────────────────────────
+    const expandBtn = document.getElementById("gtc-expand");
+    const dragHeader = panel.querySelector(".gtc-header");
+
+    if (expandBtn) {
+      expandBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const willExpand = !panel.classList.contains("expanded");
+        panel.classList.toggle("expanded");
+        panel.style.left = ""; panel.style.top = "";
+        panel.style.right = ""; panel.style.bottom = "";
+        expandBtn.setAttribute("aria-label", willExpand ? "Collapse chat" : "Expand chat");
+        expandBtn.setAttribute("title",      willExpand ? "Collapse"      : "Expand");
+      });
+    }
+
+    let dragState = null;
+    function isActionBtn(el) { return !!(el && el.closest && el.closest("button")); }
+
+    if (dragHeader) {
+      dragHeader.addEventListener("pointerdown", (e) => {
+        if (panel.classList.contains("expanded")) return;
+        if (isActionBtn(e.target)) return;
+        const rect = panel.getBoundingClientRect();
+        dragState = {
+          pointerId: e.pointerId,
+          startX: e.clientX, startY: e.clientY,
+          initialLeft: rect.left, initialTop: rect.top,
+          width: rect.width, height: rect.height,
+        };
+        panel.classList.add("dragging");
+        try { dragHeader.setPointerCapture(e.pointerId); } catch (_) {}
+      });
+      dragHeader.addEventListener("pointermove", (e) => {
+        if (!dragState || e.pointerId !== dragState.pointerId) return;
+        e.preventDefault();
+        const dx = e.clientX - dragState.startX;
+        const dy = e.clientY - dragState.startY;
+        const maxLeft = window.innerWidth  - dragState.width;
+        const maxTop  = window.innerHeight - dragState.height;
+        const newLeft = Math.max(0, Math.min(maxLeft, dragState.initialLeft + dx));
+        const newTop  = Math.max(0, Math.min(maxTop,  dragState.initialTop  + dy));
+        panel.style.left = newLeft + "px";
+        panel.style.top  = newTop  + "px";
+        panel.style.right = "auto";
+        panel.style.bottom = "auto";
+      });
+      function endDrag(e) {
+        if (!dragState || e.pointerId !== dragState.pointerId) return;
+        try { dragHeader.releasePointerCapture(e.pointerId); } catch (_) {}
+        dragState = null;
+        panel.classList.remove("dragging");
+      }
+      dragHeader.addEventListener("pointerup", endDrag);
+      dragHeader.addEventListener("pointercancel", endDrag);
+    }
   })();
   </script>
   <!-- ═════════════════════ end GrubTrucks chat widget ═════════════════════ -->
