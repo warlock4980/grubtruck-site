@@ -855,6 +855,32 @@
     }
     .gtc-panel.expanded .gtc-header { cursor: default; }
 
+    /* ── Suggestion chips: clickable shortcut questions under the greeting ── */
+    .gtc-suggestions {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 4px; padding: 0 4px;
+      animation: gtc-chip-fade-in 0.4s ease-out;
+    }
+    .gtc-suggestion {
+      background: #FAF7F2;
+      border: 1px solid #C41E3A;
+      color: #C41E3A;
+      padding: 7px 13px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
+      line-height: 1.2;
+    }
+    .gtc-suggestion:hover { background: #C41E3A; color: #FAF7F2; }
+    .gtc-suggestion:active { transform: scale(0.97); }
+    @keyframes gtc-chip-fade-in {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     /* ── Thought bubble: floats above the launcher with rotating prompts ── */
     .gtc-thought {
       position: fixed;
@@ -1252,9 +1278,36 @@
       body.innerHTML = "";
       if (history.length === 0) {
         addMessage("bot", "Hi! I'm the GrubTrucks helper. Ask me how the app works, how operators can list their truck, what cities we cover, or anything else.");
+        renderSuggestions();
         return;
       }
       history.forEach(t => addMessage(t.role, t.content, false));
+    }
+
+    // In-chat suggestion chips that appear under the initial greeting. Removed
+    // once the user sends their first message (see send()).
+    const SUGGESTIONS = [
+      "How do I list my truck?",
+      "What's the Operator Suite?",
+      "Tell me about bookkeeping",
+      "Tell me about 1-on-1 coaching",
+    ];
+    function renderSuggestions() {
+      const wrap = document.createElement("div");
+      wrap.className = "gtc-suggestions";
+      SUGGESTIONS.forEach(text => {
+        const btn = document.createElement("button");
+        btn.className = "gtc-suggestion";
+        btn.type = "button";
+        btn.textContent = text;
+        btn.addEventListener("click", () => {
+          input.value = text;
+          send();
+        });
+        wrap.appendChild(btn);
+      });
+      body.appendChild(wrap);
+      body.scrollTop = body.scrollHeight;
     }
     function hidePerch() { if (perch) perch.classList.add("hidden"); }
     function showPerch() { if (perch) perch.classList.remove("hidden"); }
@@ -1342,6 +1395,9 @@
       const msg = input.value.trim();
       if (!msg) return;
       sendBtn.disabled = true;
+      // Remove the suggestion chips once the user starts talking.
+      const chipRow = body.querySelector(".gtc-suggestions");
+      if (chipRow) chipRow.remove();
       addMessage("user", msg, false);
       history.push({ role: "user", content: msg });
       persistHistory();
@@ -1437,6 +1493,11 @@
       "Curious about the Operator Suite?",
       "Need 1-on-1 coaching?",
       "Looking for a food truck near you?",
+      "Got a question about taxes?",
+      "Want to know about Founder pricing?",
+      "Need help setting up an LLC?",
+      "Curious how the AI receptionist works?",
+      "Want a free truck listing?",
     ];
     let thoughtIdx = 0;
     let thoughtRotateTimer = null;
