@@ -637,32 +637,65 @@
     }
     .gtc-panel.expanded .gtc-header { cursor: default; }
 
-    /* ── Suggestion chips: clickable shortcut questions under the greeting ── */
-    .gtc-suggestions {
-      display: flex; flex-wrap: wrap; gap: 6px;
-      margin-top: 4px; padding: 0 4px;
-      animation: gtc-chip-fade-in 0.4s ease-out;
-    }
-    .gtc-suggestion {
+    /* ── Thought bubble: floats above the launcher with rotating prompts ── */
+    .gtc-thought {
+      position: fixed;
+      bottom: calc(100px + env(safe-area-inset-bottom));
+      right: 18px;
+      max-width: 240px;
       background: #FAF7F2;
-      border: 1px solid #C41E3A;
-      color: #C41E3A;
-      padding: 7px 13px;
+      border: 2px solid #C41E3A;
       border-radius: 16px;
+      padding: 10px 14px;
       font-size: 13px;
-      font-family: inherit;
       font-weight: 500;
+      color: #1A1A1A;
       cursor: pointer;
-      transition: background 0.15s, color 0.15s, transform 0.1s;
-      line-height: 1.2;
+      z-index: 9998;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      box-shadow: 0 6px 18px rgba(196, 30, 58, 0.18);
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.22s;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.7) translateY(8px);
     }
-    .gtc-suggestion:hover {
-      background: #C41E3A; color: #FAF7F2;
+    .gtc-thought.visible {
+      opacity: 1;
+      pointer-events: auto;
+      animation: gtc-thought-pop 0.36s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
-    .gtc-suggestion:active { transform: scale(0.97); }
-    @keyframes gtc-chip-fade-in {
-      from { opacity: 0; transform: translateY(4px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .gtc-thought:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(196, 30, 58, 0.32);
+    }
+    .gtc-thought:active { transform: translateY(0); }
+    @keyframes gtc-thought-pop {
+      0%   { opacity: 0; transform: scale(0.7) translateY(8px); }
+      60%  { opacity: 1; transform: scale(1.04) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    /* Thought-cloud tail: two dots trailing toward the launcher */
+    .gtc-thought::after,
+    .gtc-thought::before {
+      content: "";
+      position: absolute;
+      background: #FAF7F2;
+      border: 2px solid #C41E3A;
+      border-radius: 50%;
+    }
+    .gtc-thought::after {
+      width: 12px; height: 12px;
+      bottom: -18px;
+      right: 18px;
+    }
+    .gtc-thought::before {
+      width: 7px; height: 7px;
+      bottom: -32px;
+      right: 14px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gtc-thought.visible { animation: none; }
     }
 
     /* iOS soft keyboard inset — set by JS via the VisualViewport API. */
@@ -899,7 +932,10 @@
   </div>
 
   <!-- Drive-by truck: trundles across the bottom every 75s as a wink of personality. -->
-  <div class="gtc-driveby" id="gtc-driveby" aria-hidden="true">
+  <!-- Thought bubble: floats above the launcher with rotating suggested questions -->
+  <div class="gtc-thought" id="gtc-thought" role="button" tabindex="0" aria-label="Tap to ask"></div>
+
+    <div class="gtc-driveby" id="gtc-driveby" aria-hidden="true">
     <svg viewBox="0 0 84 64">
       <!-- Exhaust puffs (drawn before the truck so it covers them at origin) -->
       <g fill="#9CA3AF" opacity="0.6">
@@ -998,36 +1034,9 @@
       body.innerHTML = "";
       if (history.length === 0) {
         addMessage("bot", "Hi! I'm the GrubTrucks helper. Ask me how the app works, how operators can list their truck, what cities we cover, or anything else.");
-        renderSuggestions();
         return;
       }
       history.forEach(t => addMessage(t.role, t.content, false));
-    }
-
-    // Clickable shortcut questions that appear under the opening greeting.
-    // Hidden once the user sends their first message (since history.length > 0).
-    const SUGGESTIONS = [
-      "How do I list my truck?",
-      "What's the Operator Suite?",
-      "Tell me about bookkeeping",
-      "Tell me about 1-on-1 coaching",
-    ];
-    function renderSuggestions() {
-      const wrap = document.createElement("div");
-      wrap.className = "gtc-suggestions";
-      SUGGESTIONS.forEach(text => {
-        const btn = document.createElement("button");
-        btn.className = "gtc-suggestion";
-        btn.type = "button";
-        btn.textContent = text;
-        btn.addEventListener("click", () => {
-          input.value = text;
-          send();
-        });
-        wrap.appendChild(btn);
-      });
-      body.appendChild(wrap);
-      body.scrollTop = body.scrollHeight;
     }
     function hidePerch() { if (perch) perch.classList.add("hidden"); }
     function showPerch() { if (perch) perch.classList.remove("hidden"); }
@@ -1035,6 +1044,7 @@
       launcher.classList.add("open");
       panel.classList.add("open");
       hidePerch();
+      hideThought();
       renderHistory();
       celebrateDrive();
       setTimeout(() => input.focus(), 100);
@@ -1047,6 +1057,7 @@
       panel.style.right = ""; panel.style.bottom = "";
       markDismissed();
       showPerch();
+      startThoughtCycle(10000);
     }
     function celebrateDrive() {
       if (!driveby) return;
@@ -1198,6 +1209,62 @@
       }
       dragHeader.addEventListener("pointerup", endDrag);
       dragHeader.addEventListener("pointercancel", endDrag);
+    }
+
+    // ── Thought bubble: rotating suggested prompts above the launcher ──
+    const thought = document.getElementById("gtc-thought");
+    const THOUGHTS = [
+      "Do you want to list your truck?",
+      "Interested in bookkeeping?",
+      "Curious about the Operator Suite?",
+      "Need 1-on-1 coaching?",
+      "Looking for a food truck near you?",
+    ];
+    let thoughtIdx = 0;
+    let thoughtRotateTimer = null;
+    let thoughtFirstShowTimer = null;
+    function showCurrentThought() {
+      if (!thought) return;
+      if (panel.classList.contains("open")) return;
+      thought.textContent = THOUGHTS[thoughtIdx];
+      thought.classList.add("visible");
+    }
+    function rotateThought() {
+      if (!thought) return;
+      thoughtIdx = (thoughtIdx + 1) % THOUGHTS.length;
+      if (panel.classList.contains("open")) return;
+      if (!thought.classList.contains("visible")) { showCurrentThought(); return; }
+      thought.style.opacity = "0";
+      setTimeout(() => {
+        thought.textContent = THOUGHTS[thoughtIdx];
+        thought.style.opacity = "1";
+      }, 220);
+    }
+    function hideThought() {
+      if (thought) {
+        thought.classList.remove("visible");
+        thought.style.opacity = "";
+      }
+    }
+    function startThoughtCycle(initialDelayMs) {
+      if (thoughtRotateTimer) clearInterval(thoughtRotateTimer);
+      if (thoughtFirstShowTimer) clearTimeout(thoughtFirstShowTimer);
+      thoughtFirstShowTimer = setTimeout(showCurrentThought, initialDelayMs);
+      thoughtRotateTimer = setInterval(rotateThought, 5000);
+    }
+    if (thought) {
+      thought.addEventListener("click", () => {
+        const text = thought.textContent.trim();
+        if (!text) return;
+        hideThought();
+        openPanel();
+        setTimeout(() => {
+          input.value = text;
+          send();
+        }, 260);
+      });
+      // Start the cycle after ~5s of page load so it doesn't pop instantly.
+      startThoughtCycle(5000);
     }
 
     // ── iOS keyboard handling: keep the send button visible ─────────────
